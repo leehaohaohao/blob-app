@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">blob</string>
+    <string name="error_blank_email_password">用户名和密码不能为空！</string>
+    <string name="error_login_failed">登录失败！</string>
+    <string name="error_network">网络故障，请求失败！ %1$s</string>
+    <string name="error_send_code">邮箱验证码</string>
+    <string name="error_register">注册失败</string>
 </resources>

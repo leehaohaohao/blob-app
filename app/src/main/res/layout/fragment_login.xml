@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="top">
+
+    <!-- 用户邮箱输入框 -->
+    <EditText
+        android:id="@+id/loginEmail"
+        style="@style/EditTextStyle"
+        android:hint="请输入邮箱"
+        android:inputType="textEmailAddress" />
+
+    <!-- 用户密码输入框 -->
+    <EditText
+        android:id="@+id/loginPassword"
+        style="@style/EditTextStyle"
+        android:hint="请输入密码"
+        android:inputType="textPassword" />
+
+    <!-- 错误信息提示 -->
+    <TextView
+        android:id="@+id/textViewError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textColor="@android:color/holo_red_dark"
+        android:layout_marginTop="8dp" />
+
+    <!-- 登录按钮 -->
+    <Button
+        android:id="@+id/buttonLogin"
+        style="@style/ButtonStyle"
+        android:text="登录" />
+
+    <!-- 注册和忘记密码链接 -->
+    <TextView
+        android:id="@+id/textViewRegister"
+        style="@style/TextViewLinkStyle"
+        android:text="没有账号？注册" />
+
+    <TextView
+        android:id="@+id/textViewForgotPassword"
+        style="@style/TextViewLinkStyle"
+        android:text="忘记密码？" />
+</LinearLayout>

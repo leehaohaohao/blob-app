@@ -1,7 +1,7 @@
 package com.lihao.blob.data.network;
 
 import com.lihao.blob.base.RetrofitClient;
-import com.lihao.blob.data.network.service.UserService;
+import com.lihao.blob.data.network.service.LogService;
 
 /**
  * api管理
@@ -11,11 +11,11 @@ import com.lihao.blob.data.network.service.UserService;
  * @since 1.0
  */
 public class ApiManager {
-    private static UserService userService;
-    public static UserService getUserService() {
-        if (userService == null) {
-            userService = RetrofitClient.getInstance().create(UserService.class);
+    private static LogService logService;
+    public static LogService getUserService() {
+        if (logService == null) {
+            logService = RetrofitClient.getInstance().create(LogService.class);
         }
-        return userService;
+        return logService;
     }
 }
