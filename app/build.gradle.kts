@@ -38,4 +38,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")          // Retrofit 核心库
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")   // JSON 转换器
+    implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")  // 如果需要支持 RxJava 的话
 }
