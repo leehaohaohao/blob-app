@@ -15,16 +15,43 @@ import retrofit2.http.POST;
  * @since 1.0
  */
 public interface LogService {
+    /**
+     * 用户登录
+     */
     @POST("login")
     @FormUrlEncoded
-    Call<ResponsePack<String>> login(@Field("email") String email, @Field("password") String password);
+    Call<ResponsePack<String>> login(
+            @Field("email") String email,
+            @Field("password") String password
+    );
+
+    /**
+     * 获取邮箱验证码
+     */
     @POST("email/code")
     @FormUrlEncoded
-    Call<ResponsePack<Void>> code(@Field("email") String email);
+    Call<ResponsePack<String>> code(@Field("email") String email);
+
+    /**
+     * 用户注册
+     */
     @POST("register")
     @FormUrlEncoded
-    Call<ResponsePack<String>> register(@Field("email") String email,@Field("password") String password,@Field("code")String code);
+    Call<ResponsePack<String>> register(
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("code") String code
+    );
+
+    /**
+     * 重置密码
+     */
     @POST("forget")
     @FormUrlEncoded
-    Call<ResponsePack<Void>> resetPassword(@Field("email") String email,@Field("password") String password,@Field("code")String code);
+    Call<ResponsePack<String>> resetPassword(
+            @Field("email") String email,
+            @Field("password") String password,
+            @Field("code") String code
+    );
+
 }

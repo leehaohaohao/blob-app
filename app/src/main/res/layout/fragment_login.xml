@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:gravity="top">
+    android:gravity="center">
 
     <!-- 用户邮箱输入框 -->
     <EditText

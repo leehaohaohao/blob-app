@@ -75,13 +75,13 @@ public class ForgotPasswordFragment extends Fragment {
 
         // 发起获取验证码请求
         LogService logService = RetrofitClient.getInstance().create(LogService.class);
-        Call<ResponsePack<Void>> call = logService.code(email);
+        Call<ResponsePack<String>> call = logService.code(email);
 
-        call.enqueue(new Callback<ResponsePack<Void>>() {
+        call.enqueue(new Callback<ResponsePack<String>>() {
             @Override
-            public void onResponse(Call<ResponsePack<Void>> call, Response<ResponsePack<Void>> response) {
+            public void onResponse(Call<ResponsePack<String>> call, Response<ResponsePack<String>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    ResponsePack<Void> responsePack = response.body();
+                    ResponsePack<String> responsePack = response.body();
                     if (responsePack.getSuccess()) {
                         startCountDown();
                     } else {
@@ -93,7 +93,7 @@ public class ForgotPasswordFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ResponsePack<Void>> call, Throwable t) {
+            public void onFailure(Call<ResponsePack<String>> call, Throwable t) {
                 showError("网络请求失败：" + t.getMessage());
             }
         });
@@ -132,13 +132,13 @@ public class ForgotPasswordFragment extends Fragment {
         // 发起重置密码请求
         RegisterDto resetPasswordDto = new RegisterDto(email, newPassword, verifyCode);
         LogService logService = RetrofitClient.getInstance().create(LogService.class);
-        Call<ResponsePack<Void>> call = logService.resetPassword(resetPasswordDto.getEmail(), resetPasswordDto.getPassword(), resetPasswordDto.getCode());
+        Call<ResponsePack<String>> call = logService.resetPassword(resetPasswordDto.getEmail(), resetPasswordDto.getPassword(), resetPasswordDto.getCode());
 
-        call.enqueue(new Callback<ResponsePack<Void>>() {
+        call.enqueue(new Callback<ResponsePack<String>>() {
             @Override
-            public void onResponse(Call<ResponsePack<Void>> call, Response<ResponsePack<Void>> response) {
+            public void onResponse(Call<ResponsePack<String>> call, Response<ResponsePack<String>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    ResponsePack<Void> responsePack = response.body();
+                    ResponsePack<String> responsePack = response.body();
                     if (responsePack.getSuccess()) {
                         showError("密码重置成功！");
                         // 重置密码成功后跳转回登录页面
@@ -152,7 +152,7 @@ public class ForgotPasswordFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ResponsePack<Void>> call, Throwable t) {
+            public void onFailure(Call<ResponsePack<String>> call, Throwable t) {
                 showError("网络请求失败：" + t.getMessage());
             }
         });

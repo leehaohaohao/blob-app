@@ -70,21 +70,18 @@ public class RegisterFragment extends Fragment {
     // 发送验证码
     private void sendVerifyCode() {
         String email = editTextEmail.getText().toString().trim();
-
         if (StrUtil.isBlank(email)) {
             showError("请输入邮箱！");
             return;
         }
-
         // 发起获取验证码请求
         LogService logService = RetrofitClient.getInstance().create(LogService.class);
-        Call<ResponsePack<Void>> call = logService.code(email);
-
-        call.enqueue(new Callback<ResponsePack<Void>>() {
+        Call<ResponsePack<String>> call = logService.code(email);
+        call.enqueue(new Callback<ResponsePack<String>>() {
             @Override
-            public void onResponse(Call<ResponsePack<Void>> call, Response<ResponsePack<Void>> response) {
+            public void onResponse(Call<ResponsePack<String>> call, Response<ResponsePack<String>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    ResponsePack<Void> responsePack = response.body();
+                    ResponsePack<String> responsePack = response.body();
                     if (responsePack.getSuccess()) {
                         startCountDown();
                     } else {
@@ -96,7 +93,7 @@ public class RegisterFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ResponsePack<Void>> call, Throwable t) {
+            public void onFailure(Call<ResponsePack<String>> call, Throwable t) {
                 showError("网络请求失败：" + t.getMessage());
             }
         });

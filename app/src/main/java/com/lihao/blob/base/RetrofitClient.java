@@ -1,5 +1,7 @@
 package com.lihao.blob.base;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -24,6 +26,9 @@ public class RetrofitClient {
         if (retrofit == null) {
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(authInterceptor)
+                    .connectTimeout(30, TimeUnit.SECONDS)
+                    .readTimeout(30,TimeUnit.SECONDS)
+                    .writeTimeout(30,TimeUnit.SECONDS)
                     .build();
 
             retrofit = new Retrofit.Builder()
