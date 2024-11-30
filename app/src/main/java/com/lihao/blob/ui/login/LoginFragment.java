@@ -1,6 +1,7 @@
 package com.lihao.blob.ui.login;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.lihao.blob.R;
 import com.lihao.blob.base.ResponsePack;
 import com.lihao.blob.base.RetrofitClient;
 import com.lihao.blob.data.network.service.LogService;
+import com.lihao.blob.ui.MainActivity;
 import com.lihao.blob.utils.StrUtil;
 
 import retrofit2.Call;
@@ -124,9 +126,8 @@ public class LoginFragment extends Fragment {
     //登录成功后跳转到主界面
     private void navigateToHome() {
         // 此处可以启动主界面或者跳转到应用的其他页面
-        // 示例：跳转到主页面Activity
-        // Intent intent = new Intent(getActivity(), MainActivity.class);
-        // startActivity(intent);
-        // getActivity().finish(); // 结束当前Activity
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }
