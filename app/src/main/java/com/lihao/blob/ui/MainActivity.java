@@ -10,7 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lihao.blob.R;
 
 /**
- * classname
+ * 主要3个页面控制
  *
  * @author lihao
  * &#064;date  2024/11/30--16:19
@@ -29,14 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.view_pager);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-
         // 设置 ViewPager 的适配器
         viewPager.setAdapter(new ViewPagerAdapter(this));
-
         // 默认显示首页，设置 ViewPager 默认页面为首页，并且选中首页图标
         viewPager.setCurrentItem(1, false);
-        bottomNavigationView.setSelectedItemId(R.id.nav_home); // 选中首页图标
-
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
         // ViewPager 页面切换监听
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -46,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
                 bottomNavigationView.getMenu().getItem(position).setChecked(true);
             }
         });
-
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_publish) {

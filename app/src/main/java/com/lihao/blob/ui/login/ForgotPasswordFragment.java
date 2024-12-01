@@ -25,7 +25,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * 忘记密码页面
+ * 忘记密码
  *
  * @author lihao
  * &#064;date  2024/11/27--12:53
@@ -64,7 +64,9 @@ public class ForgotPasswordFragment extends Fragment {
         return view;
     }
 
-    // 发送验证码
+    /**
+     * 发送验证码
+     */
     private void sendVerifyCode() {
         String email = editTextEmail.getText().toString().trim();
 
@@ -99,7 +101,9 @@ public class ForgotPasswordFragment extends Fragment {
         });
     }
 
-    // 启动倒计时
+    /**
+     * 倒计时
+     */
     private void startCountDown() {
         textViewVerifyCode.setEnabled(false);
         countDownTimer = new CountDownTimer(60000, 1000) {
@@ -117,7 +121,9 @@ public class ForgotPasswordFragment extends Fragment {
         countDownTimer.start();
     }
 
-    // 重置密码
+    /**
+     * 重置密码
+     */
     private void attemptResetPassword() {
         String email = editTextEmail.getText().toString().trim();
         String newPassword = editTextNewPassword.getText().toString().trim();
@@ -158,18 +164,23 @@ public class ForgotPasswordFragment extends Fragment {
         });
     }
 
-    // 公共方法：显示错误信息
+    /**
+     * 显示错误信息
+     * @param message
+     */
     private void showError(String message) {
         textViewError.setVisibility(View.VISIBLE);
         textViewError.setText(message);
     }
 
-    // 跳转到登录页面
+    /**
+     * 跳转到登录页面
+     */
     private void navigateToLogin() {
         LoginFragment loginFragment = new LoginFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, loginFragment);
-        transaction.addToBackStack(null); // 将当前Fragment加入返回栈
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

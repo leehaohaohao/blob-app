@@ -10,7 +10,7 @@ import com.lihao.blob.ui.person.ProfileFragment;
 import com.lihao.blob.ui.publish.PublishFragment;
 
 /**
- * classname
+ * 导航栏适配器
  *
  * @author lihao
  * &#064;date  2024/11/30--16:20

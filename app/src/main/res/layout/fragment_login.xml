@@ -35,12 +35,12 @@
         style="@style/ButtonStyle"
         android:text="登录" />
 
-    <!-- 注册和忘记密码链接 -->
+    <!-- 注册链接 -->
     <TextView
         android:id="@+id/textViewRegister"
         style="@style/TextViewLinkStyle"
         android:text="没有账号？注册" />
-
+    <!-- 忘记密码链接 -->
     <TextView
         android:id="@+id/textViewForgotPassword"
         style="@style/TextViewLinkStyle"

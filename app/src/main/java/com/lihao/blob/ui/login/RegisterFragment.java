@@ -27,7 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * 注册页面
+ * 注册
  *
  * @author lihao
  * &#064;date  2024/11/27--12:52
@@ -67,7 +67,9 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
-    // 发送验证码
+    /**
+     * 获取验证码
+     */
     private void sendVerifyCode() {
         String email = editTextEmail.getText().toString().trim();
         if (StrUtil.isBlank(email)) {
@@ -99,7 +101,9 @@ public class RegisterFragment extends Fragment {
         });
     }
 
-    // 启动倒计时
+    /**
+     * 验证码倒计时
+     */
     private void startCountDown() {
         buttonGetVerifyCode.setEnabled(false);
         countDownTimer = new CountDownTimer(60000, 1000) {
@@ -117,24 +121,23 @@ public class RegisterFragment extends Fragment {
         countDownTimer.start();
     }
 
-    // 尝试注册
+    /**
+     * 注册
+     */
     private void attemptRegister() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
         String verifyCode = editTextVerifyCode.getText().toString().trim();
-
         // 表单验证
         if (StrUtil.isBlank(email, password, confirmPassword, verifyCode)) {
             showError("邮箱、密码或验证码不能为空！");
             return;
         }
-
         if (!password.equals(confirmPassword)) {
             showError("两次密码输入不一致！");
             return;
         }
-
         // 发起注册请求
         RegisterDto registerDto = new RegisterDto(email, password, verifyCode);
         LogService logService = RetrofitClient.getInstance().create(LogService.class);
@@ -163,13 +166,18 @@ public class RegisterFragment extends Fragment {
         });
     }
 
-    // 公共方法：显示错误信息
+    /**
+     * 显示错误信息
+     * @param message
+     */
     private void showError(String message) {
         textViewError.setVisibility(View.VISIBLE);
         textViewError.setText(message);
     }
 
-    // 跳转到登录页面
+    /**
+     * 跳转到登陆页面
+     */
     private void navigateToLogin() {
         LoginFragment loginFragment = new LoginFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
