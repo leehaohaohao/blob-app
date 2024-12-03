@@ -1,11 +1,7 @@
 package com.lihao.blob.data.network.service;
 
-import com.lihao.blob.base.ResponseBase;
-import com.lihao.blob.base.ResponsePack;
-import com.lihao.blob.data.model.Article;
 import com.lihao.blob.data.response.ArticleResponse;
 
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;

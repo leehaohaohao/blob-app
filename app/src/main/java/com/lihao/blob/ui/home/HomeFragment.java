@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.tabs.TabLayout;
 import com.lihao.blob.R;
-import com.lihao.blob.data.model.Article;
+import com.lihao.blob.data.model.ArticleCover;
 import com.lihao.blob.data.repository.ArticlesCallback;
 import com.lihao.blob.data.repository.ForumRepository;
 
@@ -33,8 +33,7 @@ public class HomeFragment extends Fragment {
     private TabLayout tabLayout;
     private RecyclerView recyclerView;
     private ArticleAdapter articleAdapter;
-    private List<Article> currentArticles;
-
+    private List<ArticleCover> currentArticleCovers;
     private ForumRepository forumRepository;
 
     @Nullable
@@ -44,26 +43,20 @@ public class HomeFragment extends Fragment {
 
         tabLayout = view.findViewById(R.id.tabLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
-
-        // Initialize article list and adapter
-        currentArticles = new ArrayList<>();
-        articleAdapter = new ArticleAdapter(currentArticles);
+        currentArticleCovers = new ArrayList<>();
+        articleAdapter = new ArticleAdapter(currentArticleCovers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(articleAdapter);
-
-        // Initialize ForumRepository
+        //论坛接口
         forumRepository = new ForumRepository(getContext());
-
-        // Set up TabLayout with tabs
+        //设置标签栏
         tabLayout.addTab(tabLayout.newTab().setText("推荐"));
         tabLayout.addTab(tabLayout.newTab().setText("科学家"));
         tabLayout.addTab(tabLayout.newTab().setText("历史事件"));
-
-        // Handle tab selection
+        //选择标签
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                // Fetch new articles based on the selected tab
                 fetchArticlesForTab(tab.getPosition());
             }
 
@@ -73,12 +66,9 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-                // Optional: Refresh content on reselect
                 fetchArticlesForTab(tab.getPosition());
             }
         });
-
-        // Load initial data
         fetchArticlesForTab(0);
 
         return view;
@@ -88,21 +78,19 @@ public class HomeFragment extends Fragment {
         // 显示加载中的动画
         recyclerView.setAlpha(0f);
         recyclerView.animate().alpha(1f).setDuration(300);
-
-        forumRepository.fetchArticles(getTabTag(position), 1, 5, new ArticlesCallback() {
+        forumRepository.fetchArticles(getTabTag(position), 1, 10, new ArticlesCallback() {
             @Override
-            public void onArticlesFetched(List<Article> articles) {
+            public void onArticlesFetched(List<ArticleCover> articleCovers) {
                 // 更新文章列表
-                currentArticles.clear();
-                currentArticles.addAll(articles);
+                currentArticleCovers.clear();
+                currentArticleCovers.addAll(articleCovers);
                 articleAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Throwable t) {
-                // 使用 Toast 显示错误提示
                 // 清空数据并显示错误信息
-                currentArticles.clear();
+                currentArticleCovers.clear();
                 articleAdapter.notifyDataSetChanged();
                 showToast("加载失败: " + t.getMessage());
             }

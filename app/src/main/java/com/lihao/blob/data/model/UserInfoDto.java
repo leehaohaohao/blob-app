@@ -1,7 +1,7 @@
 package com.lihao.blob.data.model;
 
 /**
- * classname
+ * 用户信息
  *
  * @author lihao
  * &#064;date  2024/12/1--18:19

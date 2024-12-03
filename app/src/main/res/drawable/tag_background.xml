@@ -1,0 +1,9 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/primary" /> <!-- 标签背景色 -->
+    <corners android:radius="16dp" /> <!-- 圆角效果 -->
+    <padding
+        android:left="8dp"
+        android:right="8dp"
+        android:top="4dp"
+        android:bottom="4dp" /> <!-- 内边距 -->
+</shape>

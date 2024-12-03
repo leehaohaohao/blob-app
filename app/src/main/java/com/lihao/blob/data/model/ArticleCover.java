@@ -1,13 +1,13 @@
 package com.lihao.blob.data.model;
 
 /**
- * classname
+ * 文章封面
  *
  * @author lihao
  * &#064;date  2024/12/1--18:18
  * @since 1.0
  */
-public class Article {
+public class ArticleCover {
     private String userId;
     private String postId;
     private String tag;
@@ -16,7 +16,16 @@ public class Article {
     private int collect;
     private String title;
     private String cover;
-    private UserInfoDto userInfo;
+    private OtherInfoDto otherInfoDto;
+
+    public OtherInfoDto getOtherInfoDto() {
+        return otherInfoDto;
+    }
+
+    public void setOtherInfoDto(OtherInfoDto otherInfoDto) {
+        this.otherInfoDto = otherInfoDto;
+    }
+
     // Getter 和 Setter
     public String getUserId() {
         return userId;
@@ -82,12 +91,5 @@ public class Article {
         this.cover = cover;
     }
 
-    public UserInfoDto getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(UserInfoDto userInfo) {
-        this.userInfo = userInfo;
-    }
 }
 

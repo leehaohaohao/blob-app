@@ -17,6 +17,7 @@
             android:layout_width="100dp"
             android:layout_height="70dp"
             android:scaleType="centerCrop"
+            android:background="@drawable/rounded_corner"
             />
 
         <!-- 文章信息 -->
@@ -39,16 +40,19 @@
                 android:maxLines="2"
                 android:textStyle="bold" />
 
-            <!-- 标签 -->
             <TextView
                 android:id="@+id/tvTag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="标签"
                 android:textSize="12sp"
-                android:textColor="@color/gray"
-                android:layout_marginTop="4dp" />
-
+                android:textColor="@color/white"
+                android:background="@drawable/tag_background"
+                android:layout_marginTop="4dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp" />
             <!-- 发布信息 -->
             <TextView
                 android:id="@+id/tvPostInfo"
@@ -61,13 +65,43 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- 操作栏 -->
+    <!-- 用户信息和操作栏合并 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="end"
+        android:gravity="start"
         android:layout_marginTop="8dp">
+
+        <!-- 用户头像和名字 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="start"
+            android:layout_marginEnd="8dp">
+
+            <ImageView
+                android:id="@+id/ivUserAvatar"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/rounded_corner"
+                android:src="@drawable/ic_default_avatar"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="用户头像" />
+
+            <TextView
+                android:id="@+id/tvUsername"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户名"
+                android:textSize="12sp"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <!-- 点赞按钮 -->
         <LinearLayout
@@ -80,34 +114,11 @@
                 android:id="@+id/ivLike"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
+                android:src="@drawable/ic_like_empty"
                 />
 
             <TextView
                 android:id="@+id/tvLikeCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="0"
-                android:textSize="12sp"
-                android:textColor="@color/black" />
-        </LinearLayout>
-
-        <!-- 收藏按钮 -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginStart="16dp">
-
-            <ImageView
-                android:id="@+id/ivCollect"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                />
-
-            <TextView
-                android:id="@+id/tvCollectCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"

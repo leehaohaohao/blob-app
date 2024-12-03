@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lihao.blob.R;
-import com.lihao.blob.data.model.Article;
+import com.lihao.blob.data.model.ArticleCover;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * classname
+ * 文章页面适配器
  *
  * @author lihao
  * &#064;date  2024/12/1--17:40
@@ -29,10 +29,10 @@ import java.util.Locale;
  */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder> {
 
-    private final List<Article> articleList;
+    private final List<ArticleCover> articleCoverList;
 
-    public ArticleAdapter(List<Article> articleList) {
-        this.articleList = articleList;
+    public ArticleAdapter(List<ArticleCover> articleCoverList) {
+        this.articleCoverList = articleCoverList;
     }
 
     @NonNull
@@ -44,31 +44,42 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
-        Article article = articleList.get(position);
+        ArticleCover articleCover = articleCoverList.get(position);
 
         // 设置标题和标签
-        holder.tvTitle.setText(article.getTitle());
-        holder.tvTag.setText(article.getTag());
+        holder.tvTitle.setText(articleCover.getTitle());
+        holder.tvTag.setText(articleCover.getTag());
 
         // 时间格式化
-        String formattedTime = formatPostTime(article.getPostTime());
+        String formattedTime = formatPostTime(articleCover.getPostTime());
         holder.tvPostInfo.setText("发布于 " + formattedTime);
 
         // 图片路径替换
-        String coverUrl = article.getCover();
+        String coverUrl = articleCover.getCover();
         if (!TextUtils.isEmpty(coverUrl)) {
             coverUrl = coverUrl.replace("localhost", "10.0.2.2");
         }
-
         // 加载封面图片
         Picasso.get()
                 .load(coverUrl)
                 .placeholder(android.R.drawable.ic_menu_report_image)
                 .into(holder.ivCover);
 
-        // 设置点赞和收藏数
-        holder.tvLikeCount.setText(String.valueOf(article.getPostLike()));
-        holder.tvCollectCount.setText(String.valueOf(article.getCollect()));
+        // 设置点赞
+        holder.tvLikeCount.setText(String.valueOf(articleCover.getPostLike()));
+
+        // 设置用户头像和名字
+        String userPhotoUrl = articleCover.getOtherInfoDto().getUserInfoDto().getPhoto(); // 获取用户头像链接
+        String userName = articleCover.getOtherInfoDto().getUserInfoDto().getName(); // 获取用户名
+        if (!TextUtils.isEmpty(userPhotoUrl)) {
+            // 使用 Picasso 加载头像
+            Picasso.get()
+                    .load(userPhotoUrl)
+                    .placeholder(R.drawable.ic_default_avatar)
+                    .into(holder.ivUserAvatar);
+        }
+        holder.tvUserName.setText(userName);
+
     }
 
     // 格式化时间
@@ -91,23 +102,23 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     @Override
     public int getItemCount() {
-        return articleList.size();
+        return articleCoverList.size();
     }
 
     static class ArticleViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivCover, ivLike, ivCollect;
-        TextView tvTitle, tvTag, tvPostInfo, tvLikeCount, tvCollectCount;
+        ImageView ivCover, ivLike,ivUserAvatar;
+        TextView tvTitle, tvTag, tvPostInfo, tvLikeCount,tvUserName;
 
         public ArticleViewHolder(@NonNull View itemView) {
             super(itemView);
             ivCover = itemView.findViewById(R.id.ivCover);
             ivLike = itemView.findViewById(R.id.ivLike);
-            ivCollect = itemView.findViewById(R.id.ivCollect);
+            ivUserAvatar = itemView.findViewById(R.id.ivUserAvatar);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvTag = itemView.findViewById(R.id.tvTag);
             tvPostInfo = itemView.findViewById(R.id.tvPostInfo);
             tvLikeCount = itemView.findViewById(R.id.tvLikeCount);
-            tvCollectCount = itemView.findViewById(R.id.tvCollectCount);
+            tvUserName = itemView.findViewById(R.id.tvUsername);
         }
     }
 }

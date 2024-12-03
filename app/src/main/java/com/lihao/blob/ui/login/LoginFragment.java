@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.lihao.blob.R;
 import com.lihao.blob.base.ResponsePack;
 import com.lihao.blob.base.RetrofitClient;
+import com.lihao.blob.data.network.ApiManager;
 import com.lihao.blob.data.network.service.LogService;
 import com.lihao.blob.ui.MainActivity;
 import com.lihao.blob.utils.StrUtil;
@@ -70,7 +71,7 @@ public class LoginFragment extends Fragment {
         }
 
         // 发起登录请求
-        LogService logService = RetrofitClient.getInstance().create(LogService.class);
+        LogService logService = ApiManager.getUserService();
         Call<ResponsePack<String>> call = logService.login(email, password);
 
         call.enqueue(new Callback<ResponsePack<String>>() {

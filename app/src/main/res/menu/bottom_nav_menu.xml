@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_publish"
-        android:icon="@android:drawable/ic_menu_add"
-    android:title="发布" />
+        android:icon="@drawable/publish"
+        android:title="发布" />
     <item
         android:id="@+id/nav_home"
-        android:icon="@android:drawable/ic_menu_view"
-    android:title="首页" />
+        android:icon="@drawable/home"
+        android:title="首页" />
     <item
         android:id="@+id/nav_profile"
-        android:icon="@android:drawable/ic_menu_myplaces"
-    android:title="个人中心" />
+        android:icon="@drawable/person"
+        android:title="个人中心" />
 </menu>

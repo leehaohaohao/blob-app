@@ -4,8 +4,9 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.lihao.blob.base.RetrofitClient;
-import com.lihao.blob.data.model.Article;
+
+import com.lihao.blob.data.model.ArticleCover;
+import com.lihao.blob.data.network.ApiManager;
 import com.lihao.blob.data.network.service.ForumService;
 import com.lihao.blob.data.response.ArticleResponse;
 
@@ -16,7 +17,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * classname
+ * 论坛接口
  *
  * @author lihao
  * &#064;date  2024/12/1--18:34
@@ -24,10 +25,10 @@ import retrofit2.Response;
  */
 public class ForumRepository {
     private ForumService forumService;
-    private Context context;  // 用来显示 Toast
+    private Context context;
 
     public ForumRepository(Context context) {
-        forumService = RetrofitClient.getInstance().create(ForumService.class);
+        forumService = ApiManager.getForumService();
     }
 
     public void fetchArticles(String tagFuzzy, int pageNum, int pageSize, ArticlesCallback callback) {
@@ -38,10 +39,10 @@ public class ForumRepository {
                     // 获取返回的 ArticleResponse
                     ArticleResponse articleResponse = response.body();
                     if (articleResponse.getData() != null && articleResponse.getData().getList() != null) {
-                        List<Article> articles = articleResponse.getData().getList();
-                        if (articles != null && !articles.isEmpty()) {
+                        List<ArticleCover> articleCovers = articleResponse.getData().getList();
+                        if (articleCovers != null && !articleCovers.isEmpty()) {
                             // 请求成功，获取文章列表
-                            callback.onArticlesFetched(articles);
+                            callback.onArticlesFetched(articleCovers);
                         } else {
                             // 文章列表为空的处理
                             Log.w("ForumRepository", "没有可以展示的文章");
@@ -69,7 +70,6 @@ public class ForumRepository {
         });
     }
     private void showToast(String message) {
-        // 使用 Toast 来显示悬浮窗，默认显示 3 秒后消失
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
 

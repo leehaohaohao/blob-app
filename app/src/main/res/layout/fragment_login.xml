@@ -9,16 +9,26 @@
     <!-- 用户邮箱输入框 -->
     <EditText
         android:id="@+id/loginEmail"
-        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="请输入邮箱"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:gravity="center"
+        android:background="@drawable/edit_text_bg"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp" />
 
     <!-- 用户密码输入框 -->
     <EditText
         android:id="@+id/loginPassword"
-        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="请输入密码"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:gravity="center"
+        android:background="@drawable/edit_text_bg"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp" />
 
     <!-- 错误信息提示 -->
     <TextView
@@ -32,17 +42,28 @@
     <!-- 登录按钮 -->
     <Button
         android:id="@+id/buttonLogin"
-        style="@style/ButtonStyle"
-        android:text="登录" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/btn_gradient" />
 
     <!-- 注册链接 -->
     <TextView
         android:id="@+id/textViewRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="没有账号？注册"
         style="@style/TextViewLinkStyle"
-        android:text="没有账号？注册" />
+        android:layout_marginTop="16dp" />
+
     <!-- 忘记密码链接 -->
     <TextView
         android:id="@+id/textViewForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="忘记密码？"
         style="@style/TextViewLinkStyle"
-        android:text="忘记密码？" />
+        android:layout_marginTop="8dp" />
+
 </LinearLayout>

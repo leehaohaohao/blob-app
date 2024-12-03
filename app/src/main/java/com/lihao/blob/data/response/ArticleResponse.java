@@ -1,11 +1,11 @@
 package com.lihao.blob.data.response;
 
-import com.lihao.blob.data.model.Article;
+import com.lihao.blob.data.model.ArticleCover;
 
 import java.util.List;
 
 /**
- * classname
+ * 文章接口响应
  *
  * @author lihao
  * &#064;date  2024/12/1--18:36
@@ -30,17 +30,16 @@ public class ArticleResponse {
     public void setData(Data data) {
         this.data = data;
     }
-    // Getters and Setters
 
     public static class Data {
-        private List<Article> list;
+        private List<ArticleCover> list;
         private int total;
 
-        public List<Article> getList() {
+        public List<ArticleCover> getList() {
             return list;
         }
 
-        public void setList(List<Article> list) {
+        public void setList(List<ArticleCover> list) {
             this.list = list;
         }
 
@@ -51,6 +50,5 @@ public class ArticleResponse {
         public void setTotal(int total) {
             this.total = total;
         }
-        // Getters and Setters
     }
 }
