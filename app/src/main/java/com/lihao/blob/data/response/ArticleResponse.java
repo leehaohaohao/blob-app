@@ -1,6 +1,6 @@
 package com.lihao.blob.data.response;
 
-import com.lihao.blob.data.model.ArticleCover;
+import com.lihao.blob.data.model.ArticleCoverDto;
 
 import java.util.List;
 
@@ -32,14 +32,14 @@ public class ArticleResponse {
     }
 
     public static class Data {
-        private List<ArticleCover> list;
+        private List<ArticleCoverDto> list;
         private int total;
 
-        public List<ArticleCover> getList() {
+        public List<ArticleCoverDto> getList() {
             return list;
         }
 
-        public void setList(List<ArticleCover> list) {
+        public void setList(List<ArticleCoverDto> list) {
             this.list = list;
         }
 

@@ -7,9 +7,50 @@
     android:gravity="center"
     android:padding="16dp">
 
+    <!-- 上传封面图片 -->
+    <ImageView
+        android:id="@+id/ivCover"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_default_cover"
+        android:scaleType="centerCrop"
+        android:contentDescription="封面图" />
+
+    <!-- 标题输入框 -->
+    <EditText
+        android:id="@+id/etTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入文章标题"
+        android:textSize="16sp"
+        android:padding="8dp"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- 标签选择下拉框 -->
+    <Spinner
+        android:id="@+id/spinnerTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- 正文输入框 -->
+    <EditText
+        android:id="@+id/etContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="请输入文章内容（支持Markdown）"
+        android:padding="8dp"
+        android:textSize="14sp"
+        android:gravity="top"
+        android:inputType="textMultiLine|textCapSentences"/>
+
+    <!-- 发布按钮 -->
     <Button
         android:id="@+id/btn_publish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="发布内容" />
+
 </LinearLayout>

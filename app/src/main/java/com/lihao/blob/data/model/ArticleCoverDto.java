@@ -7,7 +7,7 @@ package com.lihao.blob.data.model;
  * &#064;date  2024/12/1--18:18
  * @since 1.0
  */
-public class ArticleCover {
+public class ArticleCoverDto {
     private String userId;
     private String postId;
     private String tag;

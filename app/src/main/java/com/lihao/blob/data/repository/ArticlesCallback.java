@@ -1,6 +1,7 @@
 package com.lihao.blob.data.repository;
 
-import com.lihao.blob.data.model.ArticleCover;
+import com.lihao.blob.data.model.ArticleCoverDto;
+import com.lihao.blob.data.model.ArticleDto;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ import java.util.List;
  * @since 1.0
  */
 public interface ArticlesCallback {
-    void onArticlesFetched(List<ArticleCover> articleCovers);
+    void onSuccess();
+    void onArticlesFetched(List<ArticleCoverDto> articleCoverDtos);
     void onFailure(Throwable t);
+    void onArticleFetched(ArticleDto articleDto);
 }

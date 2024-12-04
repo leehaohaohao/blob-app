@@ -11,10 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.lihao.blob.R;
-import com.lihao.blob.data.model.ArticleCover;
+import com.lihao.blob.data.model.ArticleCoverDto;
+import com.lihao.blob.data.model.ArticleDto;
 import com.lihao.blob.data.repository.ArticlesCallback;
 import com.lihao.blob.data.repository.ForumRepository;
 
@@ -28,13 +30,18 @@ import java.util.List;
  * &#064;date  2024/11/30--16:21
  * @since 1.0
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment{
 
     private TabLayout tabLayout;
     private RecyclerView recyclerView;
     private ArticleAdapter articleAdapter;
-    private List<ArticleCover> currentArticleCovers;
+    private List<ArticleCoverDto> currentArticleCoverDtos;
     private ForumRepository forumRepository;
+    private ViewPager2 viewPager;
+
+    public void setViewPager(ViewPager2 viewPager) {
+        this.viewPager = viewPager;
+    }
 
     @Nullable
     @Override
@@ -43,16 +50,17 @@ public class HomeFragment extends Fragment {
 
         tabLayout = view.findViewById(R.id.tabLayout);
         recyclerView = view.findViewById(R.id.recyclerView);
-        currentArticleCovers = new ArrayList<>();
-        articleAdapter = new ArticleAdapter(currentArticleCovers);
+        currentArticleCoverDtos = new ArrayList<>();
+        articleAdapter = new ArticleAdapter(currentArticleCoverDtos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(articleAdapter);
         //论坛接口
         forumRepository = new ForumRepository(getContext());
         //设置标签栏
         tabLayout.addTab(tabLayout.newTab().setText("推荐"));
-        tabLayout.addTab(tabLayout.newTab().setText("科学家"));
-        tabLayout.addTab(tabLayout.newTab().setText("历史事件"));
+        tabLayout.addTab(tabLayout.newTab().setText("中国古代历史"));
+        tabLayout.addTab(tabLayout.newTab().setText("中国古代科技"));
+        tabLayout.addTab(tabLayout.newTab().setText("四大发明"));
         //选择标签
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -80,19 +88,29 @@ public class HomeFragment extends Fragment {
         recyclerView.animate().alpha(1f).setDuration(300);
         forumRepository.fetchArticles(getTabTag(position), 1, 10, new ArticlesCallback() {
             @Override
-            public void onArticlesFetched(List<ArticleCover> articleCovers) {
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onArticlesFetched(List<ArticleCoverDto> articleCoverDtos) {
                 // 更新文章列表
-                currentArticleCovers.clear();
-                currentArticleCovers.addAll(articleCovers);
+                currentArticleCoverDtos.clear();
+                currentArticleCoverDtos.addAll(articleCoverDtos);
                 articleAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Throwable t) {
                 // 清空数据并显示错误信息
-                currentArticleCovers.clear();
+                currentArticleCoverDtos.clear();
                 articleAdapter.notifyDataSetChanged();
                 showToast("加载失败: " + t.getMessage());
+            }
+
+            @Override
+            public void onArticleFetched(ArticleDto articleDto) {
+
             }
         });
     }
@@ -102,9 +120,11 @@ public class HomeFragment extends Fragment {
             case 0:
                 return "random_post";
             case 1:
-                return "科学家";
+                return "中国古代历史";
             case 2:
-                return "历史事件";
+                return "中国古代科技";
+            case 3:
+                return "四大发明";
             default:
                 return "推荐";
         }

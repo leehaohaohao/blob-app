@@ -1,5 +1,6 @@
 package com.lihao.blob.ui.home;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.lihao.blob.R;
-import com.lihao.blob.data.model.ArticleCover;
+import com.lihao.blob.data.model.ArticleCoverDto;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -29,10 +31,11 @@ import java.util.Locale;
  */
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder> {
 
-    private final List<ArticleCover> articleCoverList;
+    private static List<ArticleCoverDto> articleCoverDtoList = Collections.emptyList();
 
-    public ArticleAdapter(List<ArticleCover> articleCoverList) {
-        this.articleCoverList = articleCoverList;
+    // 构造函数接受回调接口
+    public ArticleAdapter(List<ArticleCoverDto> articleCoverDtoList) {
+        this.articleCoverDtoList = articleCoverDtoList;
     }
 
     @NonNull
@@ -44,18 +47,18 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
-        ArticleCover articleCover = articleCoverList.get(position);
+        ArticleCoverDto articleCoverDto = articleCoverDtoList.get(position);
 
         // 设置标题和标签
-        holder.tvTitle.setText(articleCover.getTitle());
-        holder.tvTag.setText(articleCover.getTag());
+        holder.tvTitle.setText(articleCoverDto.getTitle());
+        holder.tvTag.setText(articleCoverDto.getTag());
 
         // 时间格式化
-        String formattedTime = formatPostTime(articleCover.getPostTime());
+        String formattedTime = formatPostTime(articleCoverDto.getPostTime());
         holder.tvPostInfo.setText("发布于 " + formattedTime);
 
         // 图片路径替换
-        String coverUrl = articleCover.getCover();
+        String coverUrl = articleCoverDto.getCover();
         if (!TextUtils.isEmpty(coverUrl)) {
             coverUrl = coverUrl.replace("localhost", "10.0.2.2");
         }
@@ -66,11 +69,11 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
                 .into(holder.ivCover);
 
         // 设置点赞
-        holder.tvLikeCount.setText(String.valueOf(articleCover.getPostLike()));
+        holder.tvLikeCount.setText(String.valueOf(articleCoverDto.getPostLike()));
 
         // 设置用户头像和名字
-        String userPhotoUrl = articleCover.getOtherInfoDto().getUserInfoDto().getPhoto(); // 获取用户头像链接
-        String userName = articleCover.getOtherInfoDto().getUserInfoDto().getName(); // 获取用户名
+        String userPhotoUrl = articleCoverDto.getOtherInfoDto().getUserInfoDto().getPhoto(); // 获取用户头像链接
+        String userName = articleCoverDto.getOtherInfoDto().getUserInfoDto().getName(); // 获取用户名
         if (!TextUtils.isEmpty(userPhotoUrl)) {
             // 使用 Picasso 加载头像
             Picasso.get()
@@ -102,12 +105,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     @Override
     public int getItemCount() {
-        return articleCoverList.size();
+        return articleCoverDtoList.size();
     }
 
-    static class ArticleViewHolder extends RecyclerView.ViewHolder {
-        ImageView ivCover, ivLike,ivUserAvatar;
-        TextView tvTitle, tvTag, tvPostInfo, tvLikeCount,tvUserName;
+    // 改为非静态的 ViewHolder
+    public class ArticleViewHolder extends RecyclerView.ViewHolder {
+        ImageView ivCover, ivLike, ivUserAvatar;
+        TextView tvTitle, tvTag, tvPostInfo, tvLikeCount, tvUserName;
 
         public ArticleViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -119,6 +123,16 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
             tvPostInfo = itemView.findViewById(R.id.tvPostInfo);
             tvLikeCount = itemView.findViewById(R.id.tvLikeCount);
             tvUserName = itemView.findViewById(R.id.tvUsername);
+
+            itemView.setOnClickListener(v -> {
+                // 获取当前条目的 postId
+                ArticleCoverDto articleCover = articleCoverDtoList.get(getAdapterPosition());
+                String postId = articleCover.getPostId();
+                // 创建 Intent 来跳转到 ArticleDetailActivity
+                Intent intent = new Intent(itemView.getContext(), ArticleDetailActivity.class);
+                intent.putExtra("post_id", postId);  // 将 postId 传递给 ArticleDetailActivity
+                itemView.getContext().startActivity(intent);
+            });
         }
     }
 }

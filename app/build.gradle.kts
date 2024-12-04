@@ -43,6 +43,8 @@ dependencies {
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.9.0")  // 如果需要支持 RxJava 的话
     implementation("com.google.android.material:material:1.11.0") // 使用最新版本
     implementation ("com.squareup.picasso:picasso:2.71828")
+    implementation ("io.noties.markwon:core:4.6.0")
+    implementation ("io.noties.markwon:ext-strikethrough:4.6.0")  // 这是可选的，支持 Markdown 的删除线扩展
 
 
 }

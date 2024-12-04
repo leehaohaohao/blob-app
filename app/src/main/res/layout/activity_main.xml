@@ -9,7 +9,8 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize" />
 
     <!-- 底部导航栏 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

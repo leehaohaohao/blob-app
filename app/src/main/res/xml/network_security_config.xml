@@ -3,5 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="true">10.0.2.2</domain> <!-- 针对 Android Emulator 使用 -->
+        <domain includeSubdomains="true">121.40.154.188</domain>
     </domain-config>
 </network-security-config>

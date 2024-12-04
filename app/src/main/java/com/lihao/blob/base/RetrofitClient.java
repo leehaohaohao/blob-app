@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @since 1.0
  */
 public class RetrofitClient {
-    private static final String BASE_URL = "http://10.0.2.2:9090/blob/";
+    private static final String BASE_URL = "http://121.40.154.188:9090/blob/";
     private static Retrofit retrofit;
     private static final AuthInterceptor authInterceptor = new AuthInterceptor();
 
