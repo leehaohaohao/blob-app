@@ -140,6 +140,37 @@ public class ForumRepository {
             }
         });
     }
+    public void fetchLove(String postId, Integer status, Integer type, ArticlesCallback callback) {
+        // 调用 love 接口
+        forumService.love(postId, status, type).enqueue(new Callback<ResponsePack<String>>() {
+            @Override
+            public void onResponse(Call<ResponsePack<String>> call, Response<ResponsePack<String>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ResponsePack<String> responsePack = response.body();
+                    if (responsePack.getSuccess()) {
+                        // 成功回调
+                        callback.onSuccess();
+                    } else {
+                        // 失败处理
+                        Log.e("ForumRepository", "点赞/收藏失败: " + responsePack.getMessage());
+                        callback.onFailure(new Exception("点赞/收藏失败"));
+                    }
+                } else {
+                    // 错误处理
+                    Log.e("ForumRepository", "网络请求失败");
+                    callback.onFailure(new Exception("网络错误"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponsePack<String>> call, Throwable t) {
+                // 网络请求失败
+                Log.e("ForumRepository", "请求失败: " + t.getMessage());
+                callback.onFailure(new Exception("请求失败: " + t.getMessage()));
+            }
+        });
+    }
+
     private void showToast(String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }

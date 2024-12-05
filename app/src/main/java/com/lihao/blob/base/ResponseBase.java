@@ -1,7 +1,7 @@
 package com.lihao.blob.base;
 
 /**
- * classname
+ * 响应基类
  *
  * @author lihao
  * &#064;date  2024/12/1--19:11

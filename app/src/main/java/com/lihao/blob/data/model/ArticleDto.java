@@ -20,7 +20,6 @@ public class ArticleDto {
     private String cover;
     private String postTime;
     private boolean isLove;
-    private boolean isCollect;
 
     public String getPostId() {
         return postId;
@@ -118,11 +117,4 @@ public class ArticleDto {
         isLove = love;
     }
 
-    public boolean isCollect() {
-        return isCollect;
-    }
-
-    public void setCollect(boolean collect) {
-        isCollect = collect;
-    }
 }

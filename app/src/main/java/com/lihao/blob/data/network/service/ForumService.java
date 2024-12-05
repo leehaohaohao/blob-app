@@ -1,5 +1,7 @@
 package com.lihao.blob.data.network.service;
 
+import android.os.IInterface;
+
 import com.lihao.blob.base.ResponsePack;
 import com.lihao.blob.data.model.ArticleDto;
 import com.lihao.blob.data.model.UserInfoDto;
@@ -41,5 +43,8 @@ public interface ForumService {
             @Part("title") RequestBody title,
             @Part MultipartBody.Part file
     );
+    @FormUrlEncoded
+    @POST("forum/love/collect")
+    Call<ResponsePack<String>> love(@Field("postId")String postId, @Field("status")Integer status, @Field("type")Integer type);
 }
 
