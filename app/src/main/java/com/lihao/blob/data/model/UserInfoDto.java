@@ -18,9 +18,8 @@ public class UserInfoDto {
     private String selfTag;
     private int status;
     private int love;
-    private int collect;
+    private String telephone;
 
-    // Getter 和 Setter
     public String getUserId() {
         return userId;
     }
@@ -101,11 +100,11 @@ public class UserInfoDto {
         this.love = love;
     }
 
-    public int getCollect() {
-        return collect;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setCollect(int collect) {
-        this.collect = collect;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 }

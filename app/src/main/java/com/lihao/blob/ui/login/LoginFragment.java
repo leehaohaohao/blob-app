@@ -71,7 +71,7 @@ public class LoginFragment extends Fragment {
         }
 
         // 发起登录请求
-        LogService logService = ApiManager.getUserService();
+        LogService logService = ApiManager.getLogService();
         Call<ResponsePack<String>> call = logService.login(email, password);
 
         call.enqueue(new Callback<ResponsePack<String>>() {

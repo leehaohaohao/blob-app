@@ -77,7 +77,7 @@ public class ForgotPasswordFragment extends Fragment {
         }
 
         // 发起获取验证码请求
-        LogService logService = ApiManager.getUserService();
+        LogService logService = ApiManager.getLogService();
         Call<ResponsePack<String>> call = logService.code(email);
 
         call.enqueue(new Callback<ResponsePack<String>>() {
@@ -138,7 +138,7 @@ public class ForgotPasswordFragment extends Fragment {
 
         // 发起重置密码请求
         RegisterDto resetPasswordDto = new RegisterDto(email, newPassword, verifyCode);
-        LogService logService = ApiManager.getUserService();
+        LogService logService = ApiManager.getLogService();
         Call<ResponsePack<String>> call = logService.resetPassword(resetPasswordDto.getEmail(), resetPasswordDto.getPassword(), resetPasswordDto.getCode());
 
         call.enqueue(new Callback<ResponsePack<String>>() {

@@ -77,7 +77,7 @@ public class RegisterFragment extends Fragment {
             return;
         }
         // 发起获取验证码请求
-        LogService logService = ApiManager.getUserService();
+        LogService logService = ApiManager.getLogService();
         Call<ResponsePack<String>> call = logService.code(email);
         call.enqueue(new Callback<ResponsePack<String>>() {
             @Override
@@ -140,7 +140,7 @@ public class RegisterFragment extends Fragment {
         }
         // 发起注册请求
         RegisterDto registerDto = new RegisterDto(email, password, verifyCode);
-        LogService logService = ApiManager.getUserService();
+        LogService logService = ApiManager.getLogService();
         Call<ResponsePack<String>> call = logService.register(registerDto.getEmail(), registerDto.getPassword(), registerDto.getCode());
         call.enqueue(new Callback<ResponsePack<String>>() {
             @Override

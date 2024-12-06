@@ -17,7 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.lihao.blob.R;
 import com.lihao.blob.data.model.ArticleCoverDto;
 import com.lihao.blob.data.model.ArticleDto;
-import com.lihao.blob.data.repository.ArticlesCallback;
+import com.lihao.blob.data.repository.CallBack.ArticlesCallback;
 import com.lihao.blob.data.repository.ForumRepository;
 
 import java.util.ArrayList;
@@ -58,9 +58,16 @@ public class HomeFragment extends Fragment{
         forumRepository = new ForumRepository(getContext());
         //设置标签栏
         tabLayout.addTab(tabLayout.newTab().setText("推荐"));
-        tabLayout.addTab(tabLayout.newTab().setText("中国古代历史"));
-        tabLayout.addTab(tabLayout.newTab().setText("中国古代科技"));
-        tabLayout.addTab(tabLayout.newTab().setText("四大发明"));
+        tabLayout.addTab(tabLayout.newTab().setText("古代科学"));
+        tabLayout.addTab(tabLayout.newTab().setText("中国四大发明"));
+        tabLayout.addTab(tabLayout.newTab().setText("医学与生物科学"));
+        tabLayout.addTab(tabLayout.newTab().setText("数学与天文学"));
+        tabLayout.addTab(tabLayout.newTab().setText("工程与建筑"));
+        tabLayout.addTab(tabLayout.newTab().setText("农业与自然科学"));
+        tabLayout.addTab(tabLayout.newTab().setText("科学思想与哲学"));
+        tabLayout.addTab(tabLayout.newTab().setText("科技人物与故事"));
+        tabLayout.addTab(tabLayout.newTab().setText("古代兵器与战争技术"));
+        tabLayout.addTab(tabLayout.newTab().setText("科学与文化"));
         //选择标签
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -81,7 +88,6 @@ public class HomeFragment extends Fragment{
 
         return view;
     }
-
     private void fetchArticlesForTab(int position) {
         // 显示加载中的动画
         recyclerView.setAlpha(0f);
@@ -114,19 +120,32 @@ public class HomeFragment extends Fragment{
             }
         });
     }
-
     private String getTabTag(int position) {
         switch (position) {
             case 0:
                 return "random_post";
             case 1:
-                return "中国古代历史";
+                return "古代科学";
             case 2:
-                return "中国古代科技";
+                return "中国四大发明";
             case 3:
-                return "四大发明";
+                return "医学与生物科学";
+            case 4:
+                return "数学与天文学";
+            case 5:
+                return "工程与建筑";
+            case 6:
+                return "农业与自然科学";
+            case 7:
+                return "科学思想与哲学";
+            case 8:
+                return "科技人物与故事";
+            case 9:
+                return "古代兵器与战争技术";
+            case 10:
+                return "科学与文化";
             default:
-                return "推荐";
+                return "random_post";
         }
     }
 

@@ -4,14 +4,185 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tv_username"
-        android:layout_width="wrap_content"
+    <!-- 顶部区域：头像 + 用户名和UID -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="用户名："
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:orientation="horizontal"
+        android:gravity="start"
+        android:paddingBottom="16dp">
+
+        <!-- 用户头像 -->
+        <ImageView
+            android:id="@+id/img_avatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_default_avatar"
+            android:contentDescription="User Avatar"
+            android:scaleType="centerCrop"/>
+
+        <!-- 用户信息 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:gravity="start">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="用户名"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UID: 12345"
+                android:textSize="14sp"
+                android:textColor="@android:color/darker_gray"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 文章数，和喜欢样式相同 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <!-- 文章数小块 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/box_background"
+            android:padding="8dp">
+
+            <!-- 文章数标签 -->
+            <TextView
+                android:text="文章数"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <!-- 文章数字 -->
+            <TextView
+                android:id="@+id/tv_posts_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <!-- 我的喜欢小块 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/box_background"
+            android:padding="8dp">
+
+            <!-- 我的喜欢标签 -->
+            <TextView
+                android:text="我的喜欢"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <!-- 喜欢数字 -->
+            <TextView
+                android:id="@+id/tv_likes_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- 性别和电话，分别在一个小块中，平分一行 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
+
+        <!-- 性别小块 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/box_background"
+            android:padding="8dp">
+
+            <!-- 性别标签 -->
+            <TextView
+                android:text="性别"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <!-- 性别图标 -->
+            <ImageView
+                android:id="@+id/img_gender"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_gender_male"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+
+        <!-- 电话小块 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/box_background"
+            android:padding="8dp">
+
+            <!-- 电话标签 -->
+            <TextView
+                android:text="电话"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"/>
+
+            <!-- 电话信息 -->
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1234567890"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!-- 更改用户信息按钮 -->
+    <Button
+        android:id="@+id/btn_edit_user_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="更改用户信息"
+        android:onClick="onEditUserInfoClick"/>
 </LinearLayout>

@@ -3,6 +3,8 @@ package com.lihao.blob.data.network;
 import com.lihao.blob.base.RetrofitClient;
 import com.lihao.blob.data.network.service.ForumService;
 import com.lihao.blob.data.network.service.LogService;
+import com.lihao.blob.data.network.service.UserService;
+import com.lihao.blob.data.repository.UserRepository;
 
 /**
  * api管理
@@ -14,7 +16,8 @@ import com.lihao.blob.data.network.service.LogService;
 public class ApiManager {
     private static LogService logService;
     private static ForumService forumService;
-    public static LogService getUserService() {
+    private static UserService userService;
+    public static LogService getLogService() {
         if (logService == null) {
             logService = RetrofitClient.getInstance().create(LogService.class);
         }
@@ -25,5 +28,11 @@ public class ApiManager {
             forumService = RetrofitClient.getInstance().create(ForumService.class);
         }
         return forumService;
+    }
+    public static UserService getUserService(){
+        if(userService == null){
+            userService = RetrofitClient.getInstance().create(UserService.class);
+        }
+        return userService;
     }
 }

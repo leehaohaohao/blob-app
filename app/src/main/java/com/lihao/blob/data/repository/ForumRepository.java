@@ -11,6 +11,7 @@ import com.lihao.blob.data.model.ArticleDto;
 import com.lihao.blob.data.model.UserInfoDto;
 import com.lihao.blob.data.network.ApiManager;
 import com.lihao.blob.data.network.service.ForumService;
+import com.lihao.blob.data.repository.CallBack.ArticlesCallback;
 import com.lihao.blob.data.response.ArticleResponse;
 
 import java.io.File;
@@ -36,6 +37,7 @@ public class ForumRepository {
 
     public ForumRepository(Context context) {
         forumService = ApiManager.getForumService();
+        this.context=context;
     }
 
     public void fetchArticles(String tagFuzzy, int pageNum, int pageSize, ArticlesCallback callback) {
