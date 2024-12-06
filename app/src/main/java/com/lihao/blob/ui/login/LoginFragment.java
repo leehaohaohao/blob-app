@@ -2,6 +2,7 @@ package com.lihao.blob.ui.login;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,6 +82,7 @@ public class LoginFragment extends Fragment {
                     ResponsePack<String> responsePack = response.body();
                     if (responsePack.getSuccess()) {
                         // 登录成功，跳转到主界面或其他页面
+                        saveTokenToSharedPreferences(responsePack.getData());
                         RetrofitClient.setToken(responsePack.getData());
                         navigateToHome();
                     } else {
@@ -130,5 +132,12 @@ public class LoginFragment extends Fragment {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
         getActivity().finish();
+    }
+    // 保存 token 到 SharedPreferences
+    private void saveTokenToSharedPreferences(String token) {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_data", getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token", token);
+        editor.apply();  // 保存数据
     }
 }

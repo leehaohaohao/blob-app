@@ -185,4 +185,10 @@
         android:layout_height="wrap_content"
         android:text="更改用户信息"
         android:onClick="onEditUserInfoClick"/>
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="退出登录"
+        android:onClick="onLogoutClick" />
 </LinearLayout>

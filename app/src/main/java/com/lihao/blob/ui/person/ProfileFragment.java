@@ -1,5 +1,7 @@
 package com.lihao.blob.ui.person;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +16,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.lihao.blob.R;
+import com.lihao.blob.base.RetrofitClient;
 import com.lihao.blob.data.model.UserInfoDto;
 import com.lihao.blob.data.repository.CallBack.UserCallBack;
 import com.lihao.blob.data.repository.UserRepository;
+import com.lihao.blob.ui.login.LogActivity;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -30,15 +34,13 @@ public class ProfileFragment extends Fragment {
 
     private TextView tvName, tvUserId, tvLikes, tvPostsCount, tvPhone;
     private ImageView imgAvatar, imgGender;
-    private Button btnEditUserInfo;
+    private Button btnEditUserInfo,btnLogout;
     private UserRepository userRepository;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
         // 初始化UI组件
         tvName = view.findViewById(R.id.tv_name);
         tvUserId = view.findViewById(R.id.tv_user_id);
@@ -48,6 +50,7 @@ public class ProfileFragment extends Fragment {
         imgAvatar = view.findViewById(R.id.img_avatar);
         imgGender = view.findViewById(R.id.img_gender);
         btnEditUserInfo = view.findViewById(R.id.btn_edit_user_info);
+        btnLogout = view.findViewById(R.id.btn_logout);
 
         // 获取用户信息
         userRepository = new UserRepository(getContext());
@@ -59,28 +62,40 @@ public class ProfileFragment extends Fragment {
                 tvUserId.setText("UID: " + userInfo.getUserId());
                 tvLikes.setText(String.valueOf(userInfo.getLove()));
                 tvPostsCount.setText(String.valueOf(userInfo.getPost()));
-                tvPhone.setText(userInfo.getTelephone());  // 假设电话号码在 selfTag 中
-
+                tvPhone.setText(userInfo.getTelephone());
                 // 性别图标，使用男性或女性图片
                 if (userInfo.getGender() == 1) {
-                    imgGender.setImageResource(R.drawable.ic_gender_male); // 男性
+                    imgGender.setImageResource(R.drawable.ic_gender_male);
                 } else {
-                    imgGender.setImageResource(R.drawable.ic_gender_female); // 女性
+                    imgGender.setImageResource(R.drawable.ic_gender_female);
                 }
-
                 // 使用 Picasso 加载头像
                 Picasso.get().load(userInfo.getPhoto()).into(imgAvatar);
             }
         });
-
+        // 设置退出登录按钮点击事件
+        btnLogout.setOnClickListener(v -> onLogoutClick());
         return view;
     }
-
     // 更改用户信息按钮点击事件
     public void onEditUserInfoClick(View view) {
         // 跳转到更改用户信息的页面
         Toast.makeText(getContext(), "跳转到更改用户信息页面", Toast.LENGTH_SHORT).show();
         // TODO: 实现跳转到更改用户信息页面的代码
+    }
+    // 退出登录按钮点击事件
+    public void onLogoutClick() {
+        // 清除 SharedPreferences 中的 token
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_data", getContext().MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("token");
+        editor.apply();
+        // 清除 RetrofitClient 中的 token
+        RetrofitClient.setToken(null);
+        // 跳转到登录页面
+        Intent intent = new Intent(getActivity(), LogActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 }
 

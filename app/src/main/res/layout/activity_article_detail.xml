@@ -3,62 +3,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:padding="0dp"
+    android:background="@drawable/background_page"
     tools:context=".ui.home.ArticleDetailActivity">
 
     <!-- 顶部导航栏 -->
     <LinearLayout
         android:id="@+id/top_menu"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:background="@color/primary"
+        android:layout_height="53dp"
+        android:background="@drawable/background_top_menu"
         android:gravity="center_vertical"
-        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <!-- 返回按钮 -->
-        <ImageView
-            android:id="@+id/ivBack"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:contentDescription="Back"
-            android:src="@drawable/ic_back"
-            android:layout_marginStart="16dp"/>
 
         <!-- 文章标题 -->
         <TextView
             android:id="@+id/tvArticleTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center_horizontal"
             android:text="文章标题"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintStart_toEndOf="@id/ivBack"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
     <!-- 文章内容区域 -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/svContent"
-        android:layout_width="318dp"
-        android:layout_height="665dp"
+        android:layout_width="323dp"
+        android:layout_height="683dp"
+        android:padding="6dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/top_menu">
+        app:layout_constraintTop_toBottomOf="@id/top_menu"
+        android:background="@drawable/background_with_border">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingEnd="16dp">
+            android:paddingEnd="0dp">
 
             <!-- 文章封面 -->
             <ImageView
@@ -84,18 +79,20 @@
     <LinearLayout
         android:id="@+id/llRight"
         android:layout_width="30dp"
-        android:layout_height="698dp"
+        android:layout_height="699dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <!-- 点赞按钮 -->
         <LinearLayout
             android:id="@+id/llLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="300dp"
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:orientation="vertical">
@@ -139,6 +136,80 @@
                 android:textColor="@color/black"
                 android:textSize="14sp" />
         </LinearLayout>
+        <!-- 收藏按钮 -->
+        <LinearLayout
+            android:id="@+id/llCollect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivCollect"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_collect_empty" />
+
+            <TextView
+                android:id="@+id/tvCollectCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="0"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <!-- 分享按钮 -->
+        <LinearLayout
+            android:id="@+id/llShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivShare"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_share" />
+            <TextView
+                android:id="@+id/shareText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="分享"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <!-- 返回按钮 -->
+        <!-- 分享按钮 -->
+        <LinearLayout
+            android:id="@+id/llBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:contentDescription="Back"
+                android:src="@drawable/ic_back" />
+            <TextView
+                android:id="@+id/backText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="返回"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
