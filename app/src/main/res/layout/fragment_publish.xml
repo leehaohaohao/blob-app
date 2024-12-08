@@ -1,56 +1,84 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="16dp">
+    android:padding="20dp">
 
     <!-- 上传封面图片 -->
     <ImageView
         android:id="@+id/ivCover"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="200dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_default_cover"
         android:scaleType="centerCrop"
-        android:contentDescription="封面图" />
+        android:contentDescription="封面图"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <!-- 标题输入框 -->
     <EditText
         android:id="@+id/etTitle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="请输入文章标题"
         android:textSize="16sp"
-        android:padding="8dp"
-        android:layout_marginBottom="16dp"/>
+        android:padding="12dp"
+        android:textColor="@android:color/black"
+        android:background="@drawable/rounded_input"
+        app:layout_constraintTop_toBottomOf="@id/ivCover"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- 标签选择下拉框 -->
     <Spinner
         android:id="@+id/spinnerTag"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"/>
+        android:background="@drawable/spinner_background"
+        android:textColor="@android:color/black"
+        android:popupBackground="@drawable/spinner_background"
+        android:padding="12dp"
+        android:textSize="16sp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintTop_toBottomOf="@id/etTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/etContent"/>
+
 
     <!-- 正文输入框 -->
     <EditText
         android:id="@+id/etContent"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:hint="请输入文章内容（支持Markdown）"
-        android:padding="8dp"
         android:textSize="14sp"
+        android:hint="请输入文章内容（支持Markdown）"
         android:gravity="top"
-        android:inputType="textMultiLine|textCapSentences"/>
+        android:padding="12dp"
+        android:background="@drawable/rounded_input"
+        android:inputType="textMultiLine|textCapSentences"
+        app:layout_constraintTop_toBottomOf="@id/spinnerTag"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_publish"/>
 
     <!-- 发布按钮 -->
     <Button
         android:id="@+id/btn_publish"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="发布内容" />
+        android:text="发布内容"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_bg"
+        app:layout_constraintTop_toBottomOf="@id/etContent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
