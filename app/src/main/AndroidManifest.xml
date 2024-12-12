@@ -31,6 +31,9 @@
         <activity android:name=".ui.home.ArticleDetailActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+        <activity android:name=".ui.person.EditUserInfoActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
 
     </application>
 

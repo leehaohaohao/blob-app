@@ -36,6 +36,9 @@ public class ProfileFragment extends Fragment {
     private ImageView imgAvatar, imgGender;
     private Button btnEditUserInfo,btnLogout;
     private UserRepository userRepository;
+    private static final int REQUEST_CODE_EDIT_USER_INFO = 100;
+    public static final int RESULT_OK = -1;
+
 
     @Nullable
     @Override
@@ -73,6 +76,8 @@ public class ProfileFragment extends Fragment {
                 Picasso.get().load(userInfo.getPhoto()).into(imgAvatar);
             }
         });
+        // 设置"更改用户信息"按钮点击事件
+        btnEditUserInfo.setOnClickListener(v -> onEditUserInfoClick(v));
         // 设置退出登录按钮点击事件
         btnLogout.setOnClickListener(v -> onLogoutClick());
         return view;
@@ -80,8 +85,9 @@ public class ProfileFragment extends Fragment {
     // 更改用户信息按钮点击事件
     public void onEditUserInfoClick(View view) {
         // 跳转到更改用户信息的页面
-        Toast.makeText(getContext(), "跳转到更改用户信息页面", Toast.LENGTH_SHORT).show();
-        // TODO: 实现跳转到更改用户信息页面的代码
+//        Toast.makeText(getContext(), "跳转到更改用户信息页面", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
+        startActivity(intent);
     }
     // 退出登录按钮点击事件
     public void onLogoutClick() {
@@ -96,6 +102,29 @@ public class ProfileFragment extends Fragment {
         Intent intent = new Intent(getActivity(), LogActivity.class);
         startActivity(intent);
         getActivity().finish();
+    }
+    // 接收返回的数据并更新UI
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_EDIT_USER_INFO && resultCode == RESULT_OK && data != null) {
+            // 从返回的数据中获取更新后的用户信息
+            String updatedName = data.getStringExtra("updatedName");
+            String updatedPhone = data.getStringExtra("updatedPhone");
+            int updatedGender = data.getIntExtra("updatedGender", 1);
+
+            // 更新UI
+            tvName.setText(updatedName);
+            tvPhone.setText(updatedPhone);
+            if (updatedGender == 1) {
+                imgGender.setImageResource(R.drawable.ic_gender_male);
+            } else {
+                imgGender.setImageResource(R.drawable.ic_gender_female);
+            }
+
+            // 提示用户信息已更新
+            Toast.makeText(getContext(), "个人信息更新成功", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

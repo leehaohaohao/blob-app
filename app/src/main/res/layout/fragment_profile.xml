@@ -183,12 +183,15 @@
         android:id="@+id/btn_edit_user_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="更改用户信息"
-        android:onClick="onEditUserInfoClick"/>
+        android:text="更改个人信息" />
+    <Button
+        android:id="@+id/btn_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="问题反馈"/>
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="退出登录"
-        android:onClick="onLogoutClick" />
+        android:text="退出登录" />
 </LinearLayout>

@@ -4,6 +4,7 @@ import com.lihao.blob.base.ResponsePack;
 import com.lihao.blob.data.model.UserInfoDto;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -21,10 +22,10 @@ public interface UserService {
     @GET("user/info")
     Call<ResponsePack<UserInfoDto>> getUserInfo();
     @Multipart
-    @POST("user/updateinfo")
+    @POST("user/updateInfo")
     Call<ResponsePack<String>> updateUserInfo(
-            @Part("name")String name,
-            @Part("gender")Integer gender,
-            @Part("telephone")String telephone,
-            @Part("file") MultipartBody.Part file);
+            @Part("name") RequestBody name,
+            @Part("gender")RequestBody gender,
+            @Part("telephone")RequestBody telephone,
+            @Part MultipartBody.Part file);
 }
