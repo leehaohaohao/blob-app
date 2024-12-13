@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.lihao.blob.R;
@@ -40,6 +41,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
     private Button btnSave;
     private Uri selectedImageUri;
     private UserRepository userRepository;
+    private ImageView ivBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
         rgGender = findViewById(R.id.radio_gender);
         imgAvatar = findViewById(R.id.img_avatar);
         btnSave = findViewById(R.id.btn_submit);
+        ivBack = findViewById(R.id.ivBack);
 
         userRepository = new UserRepository(this);
 
@@ -63,6 +66,8 @@ public class EditUserInfoActivity extends AppCompatActivity {
 
         // 设置头像选择事件
         imgAvatar.setOnClickListener(v -> selectImage());
+        //设置返回按钮事件
+        ivBack.setOnClickListener(v->back());
     }
 
     private void loadUserData() {
@@ -107,13 +112,8 @@ public class EditUserInfoActivity extends AppCompatActivity {
             public void getUserInfo(UserInfoDto userInfo) {
                 // 成功后显示提示信息，并关闭当前界面
                 Toast.makeText(EditUserInfoActivity.this, "个人信息更新成功", Toast.LENGTH_SHORT).show();
-                // 将更新后的用户信息传回
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("updatedName", name);
-                resultIntent.putExtra("updatedPhone", telephone);
-                resultIntent.putExtra("updatedGender", gender);
-                setResult(RESULT_OK, resultIntent);  // 设置返回结果
-                finish();
+                // 使用 OnBackPressedDispatcher 处理返回
+                back();
             }
         });
     }
@@ -123,7 +123,10 @@ public class EditUserInfoActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, 100);
     }
-
+    public void back(){
+        OnBackPressedDispatcher onBackPressedDispatcher = getOnBackPressedDispatcher();
+        onBackPressedDispatcher.onBackPressed();  // 模拟返回操作
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

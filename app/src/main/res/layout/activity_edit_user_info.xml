@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.person.EditUserInfoActivity"
     android:background="@drawable/background_page">
+    <!-- 返回按钮 -->
+    <LinearLayout
+        android:id="@+id/llBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back" />
+    </LinearLayout>
 
     <!-- 用户头像 -->
     <ImageView

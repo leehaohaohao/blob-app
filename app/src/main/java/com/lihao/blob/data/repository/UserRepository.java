@@ -1,7 +1,6 @@
 package com.lihao.blob.data.repository;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,8 +9,8 @@ import com.lihao.blob.data.model.UserInfoDto;
 import com.lihao.blob.data.network.ApiManager;
 import com.lihao.blob.data.network.service.UserService;
 import com.lihao.blob.data.repository.CallBack.UserCallBack;
+import com.lihao.blob.utils.StrUtil;
 
-import okhttp3.FormBody;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -63,7 +62,16 @@ public class UserRepository {
         RequestBody namePart = RequestBody.create(MultipartBody.FORM, name != null ? name : "");
         RequestBody genderPart = RequestBody.create(MultipartBody.FORM, gender != null ? gender.toString() : "");
         RequestBody telephonePart = RequestBody.create(MultipartBody.FORM, telephone != null ? telephone : "");
-
+        UserInfoDto userInfoDto = new UserInfoDto();
+        if(!StrUtil.isBlank(name)){
+            userInfoDto.setName(name);
+        }
+        if( gender != null &&!StrUtil.isBlank(gender.toString())){
+            userInfoDto.setGender(gender);
+        }
+        if(!StrUtil.isBlank(telephone)){
+            userInfoDto.setTelephone(telephone);
+        }
         // 调用接口并提交表单数据
         Call<ResponsePack<String>> call = userService.updateUserInfo(
                 namePart,
@@ -78,7 +86,7 @@ public class UserRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     ResponsePack<String> responsePack = response.body();
                     if (responsePack.getSuccess()) {
-
+                        userCallBack.getUserInfo(userInfoDto);
                     } else{
                         showToast("更新失败！");
                     }
