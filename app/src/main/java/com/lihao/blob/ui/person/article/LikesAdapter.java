@@ -1,5 +1,6 @@
 package com.lihao.blob.ui.person.article;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lihao.blob.R;
 import com.lihao.blob.data.model.ArticleCoverDto;
+import com.lihao.blob.ui.home.ArticleDetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -29,7 +31,7 @@ import java.util.Locale;
  */
 public class LikesAdapter extends RecyclerView.Adapter<LikesAdapter.ArticlesViewHolder> {
 
-    private List<ArticleCoverDto> articles = Collections.emptyList();;
+    private static List<ArticleCoverDto> articles = Collections.emptyList();;
 
     public LikesAdapter(List<ArticleCoverDto> articles) {
         this.articles = articles;
@@ -94,6 +96,15 @@ public class LikesAdapter extends RecyclerView.Adapter<LikesAdapter.ArticlesView
             tvLikes = itemView.findViewById(R.id.tvLikes);
             tvCollects = itemView.findViewById(R.id.tvCollects);
             ivAuthorPhoto = itemView.findViewById(R.id.ivAuthorPhoto);
+            itemView.setOnClickListener(v->{
+                // 获取当前条目的 postId
+                ArticleCoverDto articleCover = articles.get(getAdapterPosition());
+                String postId = articleCover.getPostId();
+                // 创建 Intent 来跳转到 ArticleDetailActivity
+                Intent intent = new Intent(itemView.getContext(), ArticleDetailActivity.class);
+                intent.putExtra("post_id", postId);
+                itemView.getContext().startActivity(intent);
+            });
         }
     }
 }
