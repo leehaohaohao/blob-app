@@ -13,6 +13,7 @@ import com.lihao.blob.data.network.ApiManager;
 import com.lihao.blob.data.network.service.ForumService;
 import com.lihao.blob.data.repository.CallBack.ArticlesCallback;
 import com.lihao.blob.data.response.ArticleResponse;
+import com.lihao.blob.data.response.ArticlesResponse;
 
 import java.io.File;
 import java.util.List;
@@ -172,7 +173,48 @@ public class ForumRepository {
             }
         });
     }
+    public void fetchMyPost(Integer pageNum,Integer pageSize,Integer sort,ArticlesCallback callback){
+        forumService.getMyPost(pageNum,pageSize,sort).enqueue(new Callback<ArticlesResponse>() {
+            @Override
+            public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
+                if(response.isSuccessful()){
+                    ArticlesResponse articlesResponse = response.body();
+                    if(articlesResponse!=null && articlesResponse.getData() != null){
+                        List<ArticleCoverDto> list = articlesResponse.getData();
+                        callback.onArticlesFetched(list);
+                    }else{
+                        showToast("文章列表为空！");
+                    }
+                }
+            }
 
+            @Override
+            public void onFailure(Call<ArticlesResponse> call, Throwable t) {
+
+            }
+        });
+    }
+    public void fetchMyLike(Integer pageNum,Integer pageSize,Integer status,ArticlesCallback callback){
+        forumService.getMyLike(pageNum,pageSize,status).enqueue(new Callback<ArticlesResponse>() {
+            @Override
+            public void onResponse(Call<ArticlesResponse> call, Response<ArticlesResponse> response) {
+                if(response.isSuccessful()){
+                    ArticlesResponse articlesResponse = response.body();
+                    if(articlesResponse!=null && articlesResponse.getData() != null){
+                        List<ArticleCoverDto> list = articlesResponse.getData();
+                        callback.onArticlesFetched(list);
+                    }else{
+                        showToast("文章列表为空！");
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArticlesResponse> call, Throwable t) {
+
+            }
+        });
+    }
     private void showToast(String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }

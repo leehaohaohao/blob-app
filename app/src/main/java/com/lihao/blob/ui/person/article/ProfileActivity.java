@@ -1,5 +1,19 @@
 package com.lihao.blob.ui.person.article;
 
+import android.os.Bundle;
+import android.widget.ImageView;
+
+import androidx.activity.OnBackPressedDispatcher;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+import com.lihao.blob.R;
+import com.lihao.blob.ui.ViewPagerAdapter;
+
 /**
  * classname
  *
@@ -9,32 +23,47 @@ package com.lihao.blob.ui.person.article;
  */
 public class ProfileActivity extends AppCompatActivity {
 
+    private BottomNavigationView bottomNavigationView;
     private ViewPager2 viewPager;
-    private TabLayout tabLayout;
-    private ProfilePagerAdapter profilePagerAdapter;
-
+    private ImageView ivBack;
+    public void back(){
+        OnBackPressedDispatcher onBackPressedDispatcher = getOnBackPressedDispatcher();
+        onBackPressedDispatcher.onBackPressed();  // 模拟返回操作
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-
-        tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        // 设置 ViewPager 的适配器
+        viewPager.setAdapter(new ProfilePagerAdapter(this));
+        // 默认显示首页，设置 ViewPager 默认页面为首页，并且选中首页图标
+        viewPager.setCurrentItem(0, false);
+        bottomNavigationView.setSelectedItemId(R.id.nav_my_articles);
+        ivBack = findViewById(R.id.ivBack);
 
-        // 创建适配器
-        profilePagerAdapter = new ProfilePagerAdapter(this);
-        viewPager.setAdapter(profilePagerAdapter);
-
-        // 设置 TabLayout 和 ViewPager2 的联动
-        new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
-            switch (position) {
-                case 0:
-                    tab.setText("我的文章");
-                    break;
-                case 1:
-                    tab.setText("我的喜欢");
-                    break;
+        // ViewPager 页面切换监听
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                // 页面切换时同步更新底部导航栏的选中项
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
             }
-        }).attach();
+        });
+        // 设置底部导航栏点击事件
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if(itemId == R.id.nav_my_articles){
+                viewPager.setCurrentItem(0,false);
+                return true;
+            }else if(itemId == R.id.nav_my_likes){
+                viewPager.setCurrentItem(1,false);
+                return true;
+            }
+            return false;
+        });
+        ivBack.setOnClickListener(v-> back());
     }
 }

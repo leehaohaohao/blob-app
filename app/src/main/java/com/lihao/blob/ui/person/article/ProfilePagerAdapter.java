@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 /**
- * classname
+ * 个人文章页面适配器
  *
  * @author lihao
  * &#064;date  2024/12/16--18:12
@@ -23,9 +23,9 @@ public class ProfilePagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position) {
             case 0:
-                return new MyArticlesFragment(); // 文章页面
+                return new MyArticlesFragment();
             case 1:
-                return new MyLikesFragment(); // 喜欢页面
+                return new MyLikesFragment();
             default:
                 return new MyArticlesFragment();
         }
@@ -33,6 +33,6 @@ public class ProfilePagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 2; // 只包含两个Tab
+        return 2;
     }
 }

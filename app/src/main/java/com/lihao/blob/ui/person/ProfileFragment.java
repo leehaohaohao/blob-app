@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +21,7 @@ import com.lihao.blob.data.model.UserInfoDto;
 import com.lihao.blob.data.repository.CallBack.UserCallBack;
 import com.lihao.blob.data.repository.UserRepository;
 import com.lihao.blob.ui.login.LogActivity;
+import com.lihao.blob.ui.person.article.ProfileActivity;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -36,6 +37,7 @@ public class ProfileFragment extends Fragment {
     private ImageView imgAvatar, imgGender;
     private Button btnEditUserInfo,btnLogout,btnFeedback;
     private UserRepository userRepository;
+    private LinearLayout myPost,myLike;
 
 
     @Nullable
@@ -53,6 +55,8 @@ public class ProfileFragment extends Fragment {
         btnEditUserInfo = view.findViewById(R.id.btn_edit_user_info);
         btnLogout = view.findViewById(R.id.btn_logout);
         btnFeedback = view.findViewById(R.id.btn_feedback);
+        myPost =view.findViewById(R.id.my_post);
+        myLike = view.findViewById(R.id.my_like);
         // 获取用户信息
         userRepository = new UserRepository(getContext());
         fetchUserInfo();
@@ -78,6 +82,14 @@ public class ProfileFragment extends Fragment {
         //设置问题反馈按钮点击事件
         btnFeedback.setOnClickListener(v->{
             Intent intent = new Intent(getActivity(), FeedbackActivity.class);
+            startActivity(intent);
+        });
+        myPost.setOnClickListener(v->{
+            Intent intent = new Intent(getActivity(), ProfileActivity.class);
+            startActivity(intent);
+        });
+        myLike.setOnClickListener(v->{
+            Intent intent = new Intent(getActivity(), ProfileActivity.class);
             startActivity(intent);
         });
         return view;

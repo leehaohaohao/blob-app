@@ -60,6 +60,7 @@
 
         <!-- 文章数小块 -->
         <LinearLayout
+            android:id="@+id/my_post"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -88,6 +89,7 @@
 
         <!-- 我的喜欢小块 -->
         <LinearLayout
+            android:id="@+id/my_like"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

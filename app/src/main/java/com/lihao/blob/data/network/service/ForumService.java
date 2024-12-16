@@ -6,6 +6,7 @@ import com.lihao.blob.base.ResponsePack;
 import com.lihao.blob.data.model.ArticleDto;
 import com.lihao.blob.data.model.UserInfoDto;
 import com.lihao.blob.data.response.ArticleResponse;
+import com.lihao.blob.data.response.ArticlesResponse;
 
 
 import okhttp3.MultipartBody;
@@ -46,5 +47,19 @@ public interface ForumService {
     @FormUrlEncoded
     @POST("forum/love/collect")
     Call<ResponsePack<String>> love(@Field("postId")String postId, @Field("status")Integer status, @Field("type")Integer type);
+    @FormUrlEncoded
+    @POST("forum/user/unapproval/post")
+    Call<ArticlesResponse> getMyPost(
+            @Field("pageNum") int pageNum,
+            @Field("pageSize") int pageSize,
+            @Field("sort") int sort
+    );
+    @FormUrlEncoded
+    @POST("forum/my/like/collect/post")
+    Call<ArticlesResponse> getMyLike(
+            @Field("pageNum") int pageNum,
+            @Field("pageSize") int pageSize,
+            @Field("status") int status
+    );
 }
 

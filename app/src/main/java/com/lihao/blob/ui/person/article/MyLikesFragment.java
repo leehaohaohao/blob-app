@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lihao.blob.R;
 import com.lihao.blob.data.model.ArticleCoverDto;
+import com.lihao.blob.data.model.ArticleDto;
+import com.lihao.blob.data.repository.CallBack.ArticlesCallback;
+import com.lihao.blob.data.repository.ForumRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ public class MyLikesFragment extends Fragment {
     private RecyclerView recyclerView;
     private LikesAdapter likesAdapter;
     private List<ArticleCoverDto> likedArticles;
+    private ForumRepository forumRepository;
 
     @Nullable
     @Override
@@ -37,12 +41,34 @@ public class MyLikesFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         // 假数据填充，可以替换为实际的数据请求
         likedArticles = new ArrayList<>();
         likesAdapter = new LikesAdapter(likedArticles);
         recyclerView.setAdapter(likesAdapter);
+        forumRepository = new ForumRepository(getContext());
+        forumRepository.fetchMyLike(1, 10, 0, new ArticlesCallback() {
+            @Override
+            public void onSuccess() {
 
+            }
+
+            @Override
+            public void onArticlesFetched(List<ArticleCoverDto> articleCoverDtos) {
+                likedArticles.clear();
+                likedArticles.addAll(articleCoverDtos);
+                likesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+
+            @Override
+            public void onArticleFetched(ArticleDto articleDto) {
+
+            }
+        });
         return view;
     }
 }
