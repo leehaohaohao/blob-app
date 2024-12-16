@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.person.article.ProfileActivity">
+
+    <!-- TabLayout 用于显示“我的文章”和“我的喜欢”标签 -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabMode="fixed"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabTextColor="@android:color/darker_gray"
+        app:tabSelectedTextColor="@color/colorPrimary"
+        android:paddingTop="10dp"/>
+
+    <!-- ViewPager2 用于显示具体的页面内容 -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tabLayout"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

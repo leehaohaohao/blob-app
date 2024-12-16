@@ -1,8 +1,6 @@
 package com.lihao.blob.data.network.service;
 
 import com.lihao.blob.base.ResponsePack;
-import com.lihao.blob.data.model.UserInfoDto;
-
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
