@@ -32,7 +32,7 @@ import com.squareup.picasso.Picasso;
  * @since 1.0
  */
 public class ProfileFragment extends Fragment {
-
+    //控件
     private TextView tvName, tvUserId, tvLikes, tvPostsCount, tvPhone;
     private ImageView imgAvatar, imgGender;
     private Button btnEditUserInfo,btnLogout,btnFeedback;
@@ -44,7 +44,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        // 初始化UI组件
         tvName = view.findViewById(R.id.tv_name);
         tvUserId = view.findViewById(R.id.tv_user_id);
         tvLikes = view.findViewById(R.id.tv_likes_count);
@@ -60,7 +59,7 @@ public class ProfileFragment extends Fragment {
         // 获取用户信息
         userRepository = new UserRepository(getContext());
         fetchUserInfo();
-        // 设置"更改用户信息"按钮点击事件
+        // 设置更改用户信息按钮点击事件
         btnEditUserInfo.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), EditUserInfoActivity.class);
             startActivity(intent);
@@ -84,21 +83,26 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(getActivity(), FeedbackActivity.class);
             startActivity(intent);
         });
+        //设置我的文章按钮点击事件
         myPost.setOnClickListener(v->{
             Intent intent = new Intent(getActivity(), ProfileActivity.class);
             startActivity(intent);
         });
+        //设置我的喜欢按钮点击事件
         myLike.setOnClickListener(v->{
             Intent intent = new Intent(getActivity(), ProfileActivity.class);
             startActivity(intent);
         });
         return view;
     }
+
+    /**
+     * 调用用户信心接口
+     */
     private void fetchUserInfo() {
         userRepository.fetchUserInfo(new UserCallBack() {
             @Override
             public void getUserInfo(UserInfoDto userInfo) {
-                // 更新UI显示用户信息
                 tvName.setText(userInfo.getName());
                 tvUserId.setText("UID: " + userInfo.getUserId());
                 tvLikes.setText(String.valueOf(userInfo.getLove()));
@@ -110,7 +114,6 @@ public class ProfileFragment extends Fragment {
                 } else {
                     imgGender.setImageResource(R.drawable.ic_gender_female);
                 }
-                // 使用 Picasso 加载头像
                 Picasso.get().load(userInfo.getPhoto()).into(imgAvatar);
             }
         });

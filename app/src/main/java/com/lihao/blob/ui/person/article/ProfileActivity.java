@@ -9,26 +9,24 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.lihao.blob.R;
-import com.lihao.blob.ui.ViewPagerAdapter;
+
 
 /**
- * classname
+ * 个人中心页面
  *
  * @author lihao
  * &#064;date  2024/12/16--18:12
  * @since 1.0
  */
 public class ProfileActivity extends AppCompatActivity {
-
+    //控件
     private BottomNavigationView bottomNavigationView;
     private ViewPager2 viewPager;
     private ImageView ivBack;
     public void back(){
         OnBackPressedDispatcher onBackPressedDispatcher = getOnBackPressedDispatcher();
-        onBackPressedDispatcher.onBackPressed();  // 模拟返回操作
+        onBackPressedDispatcher.onBackPressed();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +40,6 @@ public class ProfileActivity extends AppCompatActivity {
         viewPager.setCurrentItem(0, false);
         bottomNavigationView.setSelectedItemId(R.id.nav_my_articles);
         ivBack = findViewById(R.id.ivBack);
-
-        // ViewPager 页面切换监听
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {

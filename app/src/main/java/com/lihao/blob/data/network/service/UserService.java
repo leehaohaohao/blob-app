@@ -19,8 +19,21 @@ import retrofit2.http.Part;
  * @since 1.0
  */
 public interface UserService {
+    /**
+     * 获取用户信息
+     * @return
+     */
     @GET("user/info")
     Call<ResponsePack<UserInfoDto>> getUserInfo();
+
+    /**
+     * 更新用户信息
+     * @param name 名字
+     * @param gender 性别
+     * @param telephone 电话
+     * @param file 头像
+     * @return
+     */
     @Multipart
     @POST("user/updateInfo")
     Call<ResponsePack<String>> updateUserInfo(

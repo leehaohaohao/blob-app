@@ -23,7 +23,7 @@ public class AuthInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request originalRequest = chain.request();
-        // 如果 token 不为空，添加 Authorization header
+        //token 不为空，添加Authorization
         Request.Builder builder = originalRequest.newBuilder();
         if (!StrUtil.isBlank(token)) {
             builder.addHeader("Authorization", token);

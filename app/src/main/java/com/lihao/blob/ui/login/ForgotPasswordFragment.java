@@ -33,7 +33,7 @@ import retrofit2.Response;
  * @since 1.0
  */
 public class ForgotPasswordFragment extends Fragment {
-
+    //控件
     private EditText editTextEmail, editTextNewPassword, editTextVerifyCode;
     private TextView textViewError, textViewVerifyCode;
     private Button buttonResetPassword;
@@ -43,25 +43,19 @@ public class ForgotPasswordFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_forgot_password, container, false);
-
-        // 初始化视图
         editTextEmail = view.findViewById(R.id.forgetEmail);
         editTextNewPassword = view.findViewById(R.id.newPassword);
         editTextVerifyCode = view.findViewById(R.id.forgetCode);
         textViewError = view.findViewById(R.id.textViewError);
         textViewVerifyCode = view.findViewById(R.id.getForgetCode);
         buttonResetPassword = view.findViewById(R.id.buttonResetPassword);
-
         // 获取验证码按钮
         textViewVerifyCode.setOnClickListener(v -> sendVerifyCode());
-
         // 重置密码按钮点击事件
         buttonResetPassword.setOnClickListener(v -> attemptResetPassword());
-
         // 返回到登录页面
         TextView textViewBackToLogin = view.findViewById(R.id.textViewBackToLogin);
         textViewBackToLogin.setOnClickListener(v -> navigateToLogin());
-
         return view;
     }
 
@@ -75,11 +69,9 @@ public class ForgotPasswordFragment extends Fragment {
             showError("请输入邮箱！");
             return;
         }
-
         // 发起获取验证码请求
         LogService logService = ApiManager.getLogService();
         Call<ResponsePack<String>> call = logService.code(email);
-
         call.enqueue(new Callback<ResponsePack<String>>() {
             @Override
             public void onResponse(Call<ResponsePack<String>> call, Response<ResponsePack<String>> response) {
@@ -94,14 +86,12 @@ public class ForgotPasswordFragment extends Fragment {
                     showError("验证码发送失败！");
                 }
             }
-
             @Override
             public void onFailure(Call<ResponsePack<String>> call, Throwable t) {
                 showError("网络请求失败：" + t.getMessage());
             }
         });
     }
-
     /**
      * 倒计时
      */
@@ -112,7 +102,6 @@ public class ForgotPasswordFragment extends Fragment {
             public void onTick(long millisUntilFinished) {
                 textViewVerifyCode.setText(millisUntilFinished / 1000 + "秒");
             }
-
             @Override
             public void onFinish() {
                 textViewVerifyCode.setText("重新获取");
@@ -121,7 +110,6 @@ public class ForgotPasswordFragment extends Fragment {
         };
         countDownTimer.start();
     }
-
     /**
      * 重置密码
      */
@@ -129,18 +117,15 @@ public class ForgotPasswordFragment extends Fragment {
         String email = editTextEmail.getText().toString().trim();
         String newPassword = editTextNewPassword.getText().toString().trim();
         String verifyCode = editTextVerifyCode.getText().toString().trim();
-
         // 表单验证
         if (StrUtil.isBlank(email, newPassword, verifyCode)) {
             showError("邮箱、密码或验证码不能为空！");
             return;
         }
-
         // 发起重置密码请求
         RegisterDto resetPasswordDto = new RegisterDto(email, newPassword, verifyCode);
         LogService logService = ApiManager.getLogService();
         Call<ResponsePack<String>> call = logService.resetPassword(resetPasswordDto.getEmail(), resetPasswordDto.getPassword(), resetPasswordDto.getCode());
-
         call.enqueue(new Callback<ResponsePack<String>>() {
             @Override
             public void onResponse(Call<ResponsePack<String>> call, Response<ResponsePack<String>> response) {
@@ -164,7 +149,6 @@ public class ForgotPasswordFragment extends Fragment {
             }
         });
     }
-
     /**
      * 显示错误信息
      * @param message
@@ -173,7 +157,6 @@ public class ForgotPasswordFragment extends Fragment {
         textViewError.setVisibility(View.VISIBLE);
         textViewError.setText(message);
     }
-
     /**
      * 跳转到登录页面
      */

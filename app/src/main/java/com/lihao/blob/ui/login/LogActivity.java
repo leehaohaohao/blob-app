@@ -27,39 +27,49 @@ public class LogActivity extends AppCompatActivity {
 
         // 检查用户是否已经登录
         if (isUserLoggedIn()) {
-            // 如果已经登录，获取 token 并设置到全局 RetrofitClient
+            // 已经登录，获取 token 并设置到全局 RetrofitClient
             String token = getTokenFromSharedPreferences();
-            RetrofitClient.setToken(token);  // 设置 token
-
+            RetrofitClient.setToken(token);
             // 跳转到主界面
             navigateToHome();
         } else {
-            // 如果没有登录，显示登录界面
+            // 没有登录，显示登录界面
             showFragment(new LoginFragment());
         }
     }
 
-    // 检查是否已经登录
+    /**
+     * 检查是否已经登录
+     * @return
+     */
     private boolean isUserLoggedIn() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
         String token = sharedPreferences.getString("token", null);
         return token != null; // 如果 token 存在，表示已经登录过
     }
 
-    // 获取 token
+    /**
+     * 获取token
+     * @return
+     */
     private String getTokenFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
         return sharedPreferences.getString("token", null);  // 获取 token
     }
 
-    // 显示指定的 fragment
+    /**
+     * 显示指定的fragment
+     * @param fragment
+     */
     private void showFragment(LoginFragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment);
         transaction.commit();
     }
 
-    // 跳转到主界面
+    /**
+     * 跳转到主界面
+     */
     private void navigateToHome() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

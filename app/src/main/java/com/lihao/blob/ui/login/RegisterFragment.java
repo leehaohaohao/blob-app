@@ -35,7 +35,7 @@ import retrofit2.Response;
  */
 
 public class RegisterFragment extends Fragment {
-
+    //控件
     private EditText editTextEmail, editTextPassword, editTextConfirmPassword, editTextVerifyCode;
     private TextView textViewError;
     private Button buttonRegister, buttonGetVerifyCode;
@@ -44,8 +44,6 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register, container, false);
-
-        // 初始化视图
         editTextEmail = view.findViewById(R.id.registerEmail);
         editTextPassword = view.findViewById(R.id.registerPassword);
         editTextConfirmPassword = view.findViewById(R.id.registerConfirmPassword);
@@ -53,17 +51,13 @@ public class RegisterFragment extends Fragment {
         textViewError = view.findViewById(R.id.textViewError);
         buttonRegister = view.findViewById(R.id.buttonRegister);
         buttonGetVerifyCode = view.findViewById(R.id.getRegisterCode);
-
         // 获取验证码按钮点击事件
         buttonGetVerifyCode.setOnClickListener(v -> sendVerifyCode());
-
         // 注册按钮点击事件
         buttonRegister.setOnClickListener(v -> attemptRegister());
-
         // 跳转到登录页面
         TextView textViewLogin = view.findViewById(R.id.textViewLogin);
         textViewLogin.setOnClickListener(v -> navigateToLogin());
-
         return view;
     }
 
@@ -181,7 +175,7 @@ public class RegisterFragment extends Fragment {
         LoginFragment loginFragment = new LoginFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, loginFragment);
-        transaction.addToBackStack(null); // 将当前Fragment加入返回栈
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

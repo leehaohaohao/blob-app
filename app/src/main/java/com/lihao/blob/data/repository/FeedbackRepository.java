@@ -33,6 +33,14 @@ public class FeedbackRepository {
         feedbackService = ApiManager.getFeedbackService();
         this.context=context;
     }
+
+    /**
+     * 文章发布接口封装方法
+     * @param content 内容
+     * @param status 类型
+     * @param file 封面
+     * @param feedbackCallBack 回调
+     */
     public void fetchFeedbackPublish(String content, Integer status, File file, FeedbackCallBack feedbackCallBack){
         // 构建 RequestBody
         RequestBody requestContent = RequestBody.create(MediaType.parse("text/plain"), content);
@@ -60,7 +68,6 @@ public class FeedbackRepository {
                     showToast("网络错误！");
                 }
             }
-
             @Override
             public void onFailure(Call<ResponsePack<String>> call, Throwable t) {
                 // 网络请求失败

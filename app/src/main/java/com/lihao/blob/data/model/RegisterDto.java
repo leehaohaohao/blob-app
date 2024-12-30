@@ -11,9 +11,6 @@ public class RegisterDto {
     private String email;
     private String password;
     private String code;
-    public RegisterDto(){
-
-    }
     public RegisterDto(String email, String password, String code) {
         this.email = email;
         this.password = password;

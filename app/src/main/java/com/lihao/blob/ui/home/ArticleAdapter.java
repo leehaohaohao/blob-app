@@ -13,14 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.lihao.blob.R;
 import com.lihao.blob.data.model.ArticleCoverDto;
+import com.lihao.blob.utils.StrUtil;
 import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * 文章页面适配器
@@ -33,7 +30,6 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     private static List<ArticleCoverDto> articleCoverDtoList = Collections.emptyList();
 
-    // 构造函数接受回调接口
     public ArticleAdapter(List<ArticleCoverDto> articleCoverDtoList) {
         this.articleCoverDtoList = articleCoverDtoList;
     }
@@ -48,15 +44,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
         ArticleCoverDto articleCoverDto = articleCoverDtoList.get(position);
-
         // 设置标题和标签
         holder.tvTitle.setText(articleCoverDto.getTitle());
         holder.tvTag.setText(articleCoverDto.getTag());
-
         // 时间格式化
-        String formattedTime = formatPostTime(articleCoverDto.getPostTime());
+        String formattedTime = StrUtil.formatPostTime(articleCoverDto.getPostTime());
         holder.tvPostInfo.setText("发布于 " + formattedTime);
-
         // 图片路径替换
         String coverUrl = articleCoverDto.getCover();
         if (!TextUtils.isEmpty(coverUrl)) {
@@ -67,15 +60,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
                 .load(coverUrl)
                 .placeholder(android.R.drawable.ic_menu_report_image)
                 .into(holder.ivCover);
-
         // 设置点赞
         holder.tvLikeCount.setText(String.valueOf(articleCoverDto.getPostLike()));
-
         // 设置用户头像和名字
         String userPhotoUrl = articleCoverDto.getOtherInfoDto().getUserInfoDto().getPhoto(); // 获取用户头像链接
         String userName = articleCoverDto.getOtherInfoDto().getUserInfoDto().getName(); // 获取用户名
         if (!TextUtils.isEmpty(userPhotoUrl)) {
-            // 使用 Picasso 加载头像
+            // 加载头像
             Picasso.get()
                     .load(userPhotoUrl)
                     .placeholder(R.drawable.ic_default_avatar)
@@ -85,31 +76,13 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     }
 
-    // 格式化时间
-    private String formatPostTime(String postTime) {
-        // 输入的时间格式是 "2024-09-10T06:35:19.000+00:00"
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
-        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-
-        try {
-            Date date = inputFormat.parse(postTime);
-            if (date != null) {
-                return outputFormat.format(date); // 返回正常格式化的时间
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return postTime; // 如果解析失败，返回原始时间
-    }
-
     @Override
     public int getItemCount() {
         return articleCoverDtoList.size();
     }
 
-    // 改为非静态的 ViewHolder
     public class ArticleViewHolder extends RecyclerView.ViewHolder {
+        //控件
         ImageView ivCover, ivLike, ivUserAvatar;
         TextView tvTitle, tvTag, tvPostInfo, tvLikeCount, tvUserName;
 
@@ -128,7 +101,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
                 // 获取当前条目的 postId
                 ArticleCoverDto articleCover = articleCoverDtoList.get(getAdapterPosition());
                 String postId = articleCover.getPostId();
-                // 创建 Intent 来跳转到 ArticleDetailActivity
+                //跳转ArticleDetailActivity
                 Intent intent = new Intent(itemView.getContext(), ArticleDetailActivity.class);
                 intent.putExtra("post_id", postId);  // 将 postId 传递给 ArticleDetailActivity
                 itemView.getContext().startActivity(intent);

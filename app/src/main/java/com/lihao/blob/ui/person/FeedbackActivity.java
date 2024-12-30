@@ -30,7 +30,7 @@ import java.io.File;
  * @since 1.0
  */
 public class FeedbackActivity extends AppCompatActivity {
-
+    //控件
     private EditText etContent;
     private Spinner spinnerFeedbackType;
     private Button btnSubmitFeedback;
@@ -43,7 +43,6 @@ public class FeedbackActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
-
         etContent = findViewById(R.id.etContent);
         spinnerFeedbackType = findViewById(R.id.spinnerFeedbackType);
         btnSubmitFeedback = findViewById(R.id.btnSubmitFeedback);
@@ -56,21 +55,16 @@ public class FeedbackActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, feedbackTypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFeedbackType.setAdapter(adapter);
-
         // 点击封面图片触发选择图片
         ivCover.setOnClickListener(v -> {
-            // 打开图片选择器，选中图片后更新 ivCover
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, 1);
         });
-
         // 提交反馈按钮点击事件
         btnSubmitFeedback.setOnClickListener(v -> {
             String content = etContent.getText().toString();
             int feedbackType = spinnerFeedbackType.getSelectedItemPosition();
             File file = selectedImageFile;
-
-            // 调用接口发送反馈
             feedbackRepository.fetchFeedbackPublish(content, feedbackType + 1, file, new FeedbackCallBack() {
                 @Override
                 public void getData(String content) {
@@ -79,7 +73,6 @@ public class FeedbackActivity extends AppCompatActivity {
                 }
             });
         });
-
         //返回按钮点击事件
         ivBack.setOnClickListener(v -> back());
     }
@@ -96,6 +89,12 @@ public class FeedbackActivity extends AppCompatActivity {
             ivCover.setImageURI(selectedImageUri);
         }
     }
+
+    /**
+     * 获取真实路径
+     * @param contentUri
+     * @return
+     */
     private String getRealPathFromURI(Uri contentUri) {
         String[] proj = {MediaStore.Images.Media.DATA};
         Cursor cursor = getContentResolver().query(contentUri, proj, null, null, null);

@@ -1,6 +1,5 @@
 package com.lihao.blob.data.model;
 
-import okhttp3.Interceptor;
 
 /**
  * 其他用户信息

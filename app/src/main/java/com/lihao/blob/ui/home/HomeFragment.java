@@ -31,7 +31,7 @@ import java.util.List;
  * @since 1.0
  */
 public class HomeFragment extends Fragment{
-
+    //控件
     private TabLayout tabLayout;
     private RecyclerView recyclerView;
     private ArticleAdapter articleAdapter;
@@ -54,7 +54,6 @@ public class HomeFragment extends Fragment{
         articleAdapter = new ArticleAdapter(currentArticleCoverDtos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(articleAdapter);
-        //论坛接口
         forumRepository = new ForumRepository(getContext());
         //设置标签栏
         tabLayout.addTab(tabLayout.newTab().setText("推荐"));
@@ -88,6 +87,11 @@ public class HomeFragment extends Fragment{
 
         return view;
     }
+
+    /**
+     * 根据标签调用文章接口
+     * @param position
+     */
     private void fetchArticlesForTab(int position) {
         // 显示加载中的动画
         recyclerView.setAlpha(0f);
@@ -108,7 +112,6 @@ public class HomeFragment extends Fragment{
 
             @Override
             public void onFailure(Throwable t) {
-                // 清空数据并显示错误信息
                 currentArticleCoverDtos.clear();
                 articleAdapter.notifyDataSetChanged();
                 showToast("加载失败: " + t.getMessage());
@@ -120,6 +123,12 @@ public class HomeFragment extends Fragment{
             }
         });
     }
+
+    /**
+     * spanner选择
+     * @param position
+     * @return
+     */
     private String getTabTag(int position) {
         switch (position) {
             case 0:

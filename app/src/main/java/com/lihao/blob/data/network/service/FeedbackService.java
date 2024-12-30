@@ -16,6 +16,13 @@ import retrofit2.http.Part;
  * @since 1.0
  */
 public interface FeedbackService {
+    /**
+     * 问题反馈接口
+     * @param content 内容
+     * @param status 类型
+     * @param file 封面
+     * @return
+     */
     @Multipart
     @POST("error/publish")
     Call<ResponsePack<String>> publish(

@@ -17,7 +17,7 @@ import com.lihao.blob.R;
  * @since 1.0
  */
 public class MainActivity extends AppCompatActivity {
-
+    //控件
     private ViewPager2 viewPager;
     private BottomNavigationView bottomNavigationView;
 

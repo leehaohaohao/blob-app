@@ -40,7 +40,13 @@ public class ForumRepository {
         forumService = ApiManager.getForumService();
         this.context=context;
     }
-
+    /**
+     * 获取文章接口封装
+     * @param tagFuzzy 模糊标签
+     * @param pageNum 页码
+     * @param pageSize 一页显示数量
+     * @param callback 回调
+     */
     public void fetchArticles(String tagFuzzy, int pageNum, int pageSize, ArticlesCallback callback) {
         forumService.getArticles(tagFuzzy, pageNum, pageSize).enqueue(new Callback<ArticleResponse>() {
             @Override
@@ -79,6 +85,11 @@ public class ForumRepository {
             }
         });
     }
+    /**
+     * 获取文章详情接口封装
+     * @param postId 文章id
+     * @param callback 回调
+     */
     public void fetchArticleDetail(String postId,ArticlesCallback callback){
         forumService.getArticleDetail(postId).enqueue(new Callback<ResponsePack<ArticleDto>>() {
             @Override
@@ -108,6 +119,14 @@ public class ForumRepository {
             }
         });
     }
+    /**
+     * 文章发布接口封装
+     * @param content 内容
+     * @param tag 标签
+     * @param title 标题
+     * @param file 封面
+     * @param callback 回调
+     */
     public void fetchPublish(String content, String tag, String title, File file,ArticlesCallback callback){
         // 构建 RequestBody
         RequestBody requestContent = RequestBody.create(MediaType.parse("text/plain"), content);
@@ -143,6 +162,13 @@ public class ForumRepository {
             }
         });
     }
+    /**
+     * 点赞接口封装
+     * @param postId 文章id
+     * @param type 类型
+     * @param status 状态
+     * @param callback 回调
+     */
     public void fetchLove(String postId, Integer status, Integer type, ArticlesCallback callback) {
         // 调用 love 接口
         forumService.love(postId, status, type).enqueue(new Callback<ResponsePack<String>>() {
@@ -173,6 +199,13 @@ public class ForumRepository {
             }
         });
     }
+    /**
+     * 我的文章接口封装
+     * @param pageNum 页码
+     * @param pageSize 一页显示数量
+     * @param sort 类型
+     * @param callback 回调
+     */
     public void fetchMyPost(Integer pageNum,Integer pageSize,Integer sort,ArticlesCallback callback){
         forumService.getMyPost(pageNum,pageSize,sort).enqueue(new Callback<ArticlesResponse>() {
             @Override
@@ -194,6 +227,14 @@ public class ForumRepository {
             }
         });
     }
+
+    /**
+     * 我的喜欢接口封装
+     * @param pageNum 页码
+     * @param pageSize 一页显示数量
+     * @param status 类型
+     * @param callback 回调
+     */
     public void fetchMyLike(Integer pageNum,Integer pageSize,Integer status,ArticlesCallback callback){
         forumService.getMyLike(pageNum,pageSize,status).enqueue(new Callback<ArticlesResponse>() {
             @Override

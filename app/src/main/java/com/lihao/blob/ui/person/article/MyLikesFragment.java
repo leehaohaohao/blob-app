@@ -21,14 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * classname
+ * 我的喜欢列表
  *
  * @author lihao
  * &#064;date  2024/12/16--18:13
  * @since 1.0
  */
 public class MyLikesFragment extends Fragment {
-
+    //控件
     private RecyclerView recyclerView;
     private LikesAdapter likesAdapter;
     private List<ArticleCoverDto> likedArticles;
@@ -38,10 +38,8 @@ public class MyLikesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_likes, container, false);
-
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        // 假数据填充，可以替换为实际的数据请求
         likedArticles = new ArrayList<>();
         likesAdapter = new LikesAdapter(likedArticles);
         recyclerView.setAdapter(likesAdapter);

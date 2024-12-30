@@ -31,7 +31,11 @@ public class UserRepository {
         this.context=context;
         this.userService = ApiManager.getUserService();
     }
-    //获取用户信息
+
+    /**
+     * 获取用户信息接口封装
+     * @param userCallBack 回调
+     */
     public void fetchUserInfo(UserCallBack userCallBack){
         userService.getUserInfo().enqueue(new Callback<ResponsePack<UserInfoDto>>() {
             @Override
@@ -56,7 +60,15 @@ public class UserRepository {
             }
         });
     }
-    //更改用户信息
+
+    /**
+     * 更改用户信息接口封装
+     * @param name 名字
+     * @param gender 性别
+     * @param telephone 电话
+     * @param file 头像
+     * @param userCallBack 回调
+     */
     public void updateUserInfo(String name, Integer gender, String telephone, MultipartBody.Part file, UserCallBack userCallBack){
         // 构建文本数据的 RequestBody
         RequestBody namePart = RequestBody.create(MultipartBody.FORM, name != null ? name : "");

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lihao.blob.R;
 import com.lihao.blob.data.model.ArticleCoverDto;
 import com.lihao.blob.ui.home.ArticleDetailActivity;
+import com.lihao.blob.utils.StrUtil;
 import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * classname
+ * 我的喜欢适配器
  *
  * @author lihao
  * &#064;date  2024/12/16--18:20
@@ -53,35 +54,16 @@ public class LikesAdapter extends RecyclerView.Adapter<LikesAdapter.ArticlesView
         holder.tvTitle.setText(article.getTitle());
         holder.tvTag.setText(article.getTag());
         holder.tvAuthorName.setText(article.getOtherInfoDto().getUserInfoDto().getName());
-        holder.tvPostTime.setText(formatPostTime(article.getPostTime()));
+        holder.tvPostTime.setText(StrUtil.formatPostTime(article.getPostTime()));
         holder.tvLikes.setText(article.getPostLike()+" 喜欢");
         holder.tvCollects.setText(article.getCollect()+" 收藏");
     }
-
-
     @Override
     public int getItemCount() {
         return articles.size();
     }
-    // 格式化时间
-    private String formatPostTime(String postTime) {
-        // 输入的时间格式是 "2024-09-10T06:35:19.000+00:00"
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ", Locale.getDefault());
-        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-
-        try {
-            Date date = inputFormat.parse(postTime);
-            if (date != null) {
-                return outputFormat.format(date); // 返回正常格式化的时间
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return postTime; // 如果解析失败，返回原始时间
-    }
     public static class ArticlesViewHolder extends RecyclerView.ViewHolder {
-        // 视图控件
+        //控件
         private ImageView ivCover,ivAuthorPhoto;
         private TextView tvTitle,tvAuthorName;
         private TextView tvTag,tvPostTime,tvLikes,tvCollects;
@@ -97,10 +79,10 @@ public class LikesAdapter extends RecyclerView.Adapter<LikesAdapter.ArticlesView
             tvCollects = itemView.findViewById(R.id.tvCollects);
             ivAuthorPhoto = itemView.findViewById(R.id.ivAuthorPhoto);
             itemView.setOnClickListener(v->{
-                // 获取当前条目的 postId
+                //获取当前条目的 postId
                 ArticleCoverDto articleCover = articles.get(getAdapterPosition());
                 String postId = articleCover.getPostId();
-                // 创建 Intent 来跳转到 ArticleDetailActivity
+                //跳转到ArticleDetailActivity
                 Intent intent = new Intent(itemView.getContext(), ArticleDetailActivity.class);
                 intent.putExtra("post_id", postId);
                 itemView.getContext().startActivity(intent);

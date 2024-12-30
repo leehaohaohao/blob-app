@@ -24,14 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * classname
+ * 我的文章列表
  *
  * @author lihao
  * &#064;date  2024/12/16--18:14
  * @since 1.0
  */
 public class MyArticlesFragment extends Fragment {
-
+    //控件
     private RecyclerView recyclerView;
     private ArticlesAdapter articlesAdapter;
     private List<ArticleCoverDto> articles;
@@ -52,17 +52,17 @@ public class MyArticlesFragment extends Fragment {
         return view;
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        loadArticles();
-//    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadArticles();
+    }
 
     private void loadArticles() {
         forumRepository.fetchMyPost(1, 10, 2, new ArticlesCallback() {
             @Override
             public void onSuccess() {
-                // Success callback if needed
+
             }
 
             @Override
@@ -74,12 +74,12 @@ public class MyArticlesFragment extends Fragment {
 
             @Override
             public void onFailure(Throwable t) {
-                // Handle failure
+
             }
 
             @Override
             public void onArticleFetched(ArticleDto articleDto) {
-                // Handle single article fetch if needed
+
             }
         });
     }

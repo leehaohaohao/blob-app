@@ -34,7 +34,7 @@ import okhttp3.RequestBody;
  * @since 1.0
  */
 public class EditUserInfoActivity extends AppCompatActivity {
-
+    //控件
     private EditText etName, etTelephone;
     private RadioGroup rgGender;
     private ImageView imgAvatar;
@@ -47,23 +47,16 @@ public class EditUserInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_info);
-
-        // 初始化 UI 元素
         etName = findViewById(R.id.edt_name);
         etTelephone = findViewById(R.id.edt_phone);
         rgGender = findViewById(R.id.radio_gender);
         imgAvatar = findViewById(R.id.img_avatar);
         btnSave = findViewById(R.id.btn_submit);
         ivBack = findViewById(R.id.ivBack);
-
         userRepository = new UserRepository(this);
-
-        // 调用接口获取用户数据并填充
         loadUserData();
-
         // 设置保存按钮点击事件
         btnSave.setOnClickListener(v -> onSaveButtonClick());
-
         // 设置头像选择事件
         imgAvatar.setOnClickListener(v -> selectImage());
         //设置返回按钮事件
@@ -76,14 +69,13 @@ public class EditUserInfoActivity extends AppCompatActivity {
             public void getUserInfo(UserInfoDto userInfo) {
                 // 填充用户数据
                 if (userInfo != null) {
-                    // 填充姓名和电话
                     etName.setText(userInfo.getName());
                     etTelephone.setText(userInfo.getTelephone());
                     // 根据性别设置 RadioButton
                     if (userInfo.getGender() == 1) {
-                        rgGender.check(R.id.radio_male);  // 男
+                        rgGender.check(R.id.radio_male);
                     } else if (userInfo.getGender() == 2) {
-                        rgGender.check(R.id.radio_female);  // 女
+                        rgGender.check(R.id.radio_female);
                     }
                     // 显示头像
                     String avatarUrl = userInfo.getPhoto();
@@ -99,26 +91,25 @@ public class EditUserInfoActivity extends AppCompatActivity {
         // 获取输入的用户信息
         String name = etName.getText().toString().trim();
         String telephone = etTelephone.getText().toString().trim();
-        Integer gender = rgGender.getCheckedRadioButtonId() == R.id.radio_male ? 1 : 2;  // 男 1, 女 2
-
+        Integer gender = rgGender.getCheckedRadioButtonId() == R.id.radio_male ? 1 : 2;
         MultipartBody.Part filePart = null;
         if (selectedImageUri != null) {
-            filePart = prepareFilePart("file", selectedImageUri);  // 准备上传头像文件
+            filePart = prepareFilePart("file", selectedImageUri);
         }
-
-        // 调用 UserRepository 提交更改
+        // 调用更改用户信息接口
         userRepository.updateUserInfo(name, gender, telephone, filePart, new UserCallBack() {
             @Override
             public void getUserInfo(UserInfoDto userInfo) {
                 // 成功后显示提示信息，并关闭当前界面
                 Toast.makeText(EditUserInfoActivity.this, "个人信息更新成功", Toast.LENGTH_SHORT).show();
-                // 使用 OnBackPressedDispatcher 处理返回
                 back();
             }
         });
     }
 
-    // 选择头像图片
+    /**
+     * 选择头像图片
+     */
     private void selectImage() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, 100);
@@ -136,14 +127,23 @@ public class EditUserInfoActivity extends AppCompatActivity {
         }
     }
 
-    // 将选中的文件转换为 MultipartBody.Part
+    /**
+     * 将选中的文件转换为 MultipartBody.Part
+     * @param partName
+     * @param fileUri
+     * @return
+     */
     private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
         File file = new File(getRealPathFromURI(fileUri));
         RequestBody requestBody = RequestBody.create(MediaType.parse(getContentResolver().getType(fileUri)), file);
         return MultipartBody.Part.createFormData(partName, file.getName(), requestBody);
     }
 
-    // 获取文件的真实路径
+    /**
+     * 获取文件的真实路径
+     * @param contentUri
+     * @return
+     */
     private String getRealPathFromURI(Uri contentUri) {
         Cursor cursor = getContentResolver().query(contentUri, null, null, null, null);
         if (cursor == null) {

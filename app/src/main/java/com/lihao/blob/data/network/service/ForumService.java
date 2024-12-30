@@ -26,6 +26,13 @@ import retrofit2.http.Part;
  * @since 1.0
  */
 public interface ForumService {
+    /**
+     * 获取相关标签的文章
+     * @param tagFuzzy 模糊标签
+     * @param pageNum 页码
+     * @param pageSize 一页显示数量
+     * @return
+     */
     @FormUrlEncoded
     @POST("forum/tag/post")
     Call<ArticleResponse> getArticles(
@@ -33,9 +40,24 @@ public interface ForumService {
             @Field("pageNum") int pageNum,
             @Field("pageSize") int pageSize
     );
+
+    /**
+     * 获取指定文章
+     * @param postId 文章id
+     * @return
+     */
     @FormUrlEncoded
     @POST("forum/id/post")
     Call<ResponsePack<ArticleDto>> getArticleDetail(@Field("postId")String postId);
+
+    /**
+     * 文章发布接口
+     * @param postContent 内容
+     * @param tag 标签
+     * @param title 标题
+     * @param file 封面
+     * @return
+     */
     @Multipart
     @POST("forum/post")
     Call<ResponsePack<UserInfoDto>> publish(
@@ -44,9 +66,25 @@ public interface ForumService {
             @Part("title") RequestBody title,
             @Part MultipartBody.Part file
     );
+
+    /**
+     * 点赞
+     * @param postId 文章id
+     * @param status 状态
+     * @param type 类型
+     * @return
+     */
     @FormUrlEncoded
     @POST("forum/love/collect")
     Call<ResponsePack<String>> love(@Field("postId")String postId, @Field("status")Integer status, @Field("type")Integer type);
+
+    /**
+     * 获取我的文章
+     * @param pageNum 页码
+     * @param pageSize 一页显示数量
+     * @param sort 排序
+     * @return
+     */
     @FormUrlEncoded
     @POST("forum/user/unapproval/post")
     Call<ArticlesResponse> getMyPost(
@@ -54,6 +92,14 @@ public interface ForumService {
             @Field("pageSize") int pageSize,
             @Field("sort") int sort
     );
+
+    /**
+     * 获取我的喜欢
+     * @param pageNum 页码
+     * @param pageSize 一页显示数量
+     * @param status 状态
+     * @return
+     */
     @FormUrlEncoded
     @POST("forum/my/like/collect/post")
     Call<ArticlesResponse> getMyLike(

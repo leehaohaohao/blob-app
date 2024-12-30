@@ -19,24 +19,41 @@ public class ApiManager {
     private static ForumService forumService;
     private static UserService userService;
     private static FeedbackService feedbackService;
+
+    /**
+     * 获取登陆接口
+     * @return
+     */
     public static LogService getLogService() {
         if (logService == null) {
             logService = RetrofitClient.getInstance().create(LogService.class);
         }
         return logService;
     }
+    /**
+     * 获取文章接口
+     * @return
+     */
     public static ForumService getForumService() {
         if (forumService == null) {
             forumService = RetrofitClient.getInstance().create(ForumService.class);
         }
         return forumService;
     }
+    /**
+     * 获取用户接口
+     * @return
+     */
     public static UserService getUserService(){
         if(userService == null){
             userService = RetrofitClient.getInstance().create(UserService.class);
         }
         return userService;
     }
+    /**
+     * 获取问题反馈接口
+     * @return
+     */
     public static FeedbackService getFeedbackService(){
         if(feedbackService == null){
             feedbackService = RetrofitClient.getInstance().create(FeedbackService.class);
