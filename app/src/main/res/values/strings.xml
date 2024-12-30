@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">blob</string>
+    <string name="app_name">中国历史论坛</string>
     <string name="error_blank_email_password">用户名和密码不能为空！</string>
     <string name="error_login_failed">登录失败！</string>
     <string name="error_network">网络故障，请求失败！ %1$s</string>
