@@ -11,7 +11,7 @@
         android:id="@+id/registerEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入邮箱"
+        android:hint="请输入邮箱（QQ邮箱）"
         android:inputType="textEmailAddress"
         android:gravity="center"
         android:background="@drawable/edit_text_bg"

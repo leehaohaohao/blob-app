@@ -15,7 +15,14 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    signingConfigs {
+        create("release") {
+            storeFile = file("C:/Users/lihao/Desktop/my-release-key.jks")  // 密钥库文件的路径
+            storePassword = "123456"  // 密钥库密码
+            keyAlias = "key0"  // 密钥别名
+            keyPassword = "123456"  // 密钥密码
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
