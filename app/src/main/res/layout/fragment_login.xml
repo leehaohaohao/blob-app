@@ -5,9 +5,44 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center">
+    <!-- 图标和标题 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/title_background">
 
+        <!-- 图标 -->
+        <ImageView
+            android:id="@+id/titleIcon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/round_image"
+            android:clipToOutline="true"
+            android:src="@drawable/icon" />
+
+        <!-- 标题 -->
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="中国历史论坛"
+            android:textSize="30sp"
+            android:textColor="#FFFFFF"
+            android:gravity="start"
+            android:textStyle="bold"
+            android:padding="12dp"
+            android:shadowColor="#000000"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4" />
+        </LinearLayout>
     <!-- 用户邮箱输入框 -->
     <EditText
+        android:layout_marginTop="20dp"
         android:id="@+id/loginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

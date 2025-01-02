@@ -5,8 +5,6 @@ import com.lihao.blob.data.network.service.FeedbackService;
 import com.lihao.blob.data.network.service.ForumService;
 import com.lihao.blob.data.network.service.LogService;
 import com.lihao.blob.data.network.service.UserService;
-import com.lihao.blob.data.repository.UserRepository;
-
 /**
  * api管理
  *
